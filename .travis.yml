@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+- '4.4'
+env:
+- CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+deploy:
+  provider: heroku
+  api_key:
+    secure: IzgqK7UsXRzdJ+sr/Ip6qPEbb1QtSMeORo/8yRAiBWWFVskZFpryUF4iuq+RVebIK9EeWL1az2THBY+kcP76xSjqZhgnks0XdXzR1lTIAMkOT8k/ogiwi3PqaPV/iKX/vNPg0DzQDsmbivG2m+V0JKeuZ6LFib+E5B8AnijAlCNBeWEcn5MAZjRomKCe58K7pOBFi9sSg4Ko/MkCrfjgE/vfXizxpwxFV+pyvEIFmQaeonjZ0tM26QcyfQyNVcHKSh/DPAz1rv+KMfceQD3ozkJTcyXNUGNSG4aK6zfiAYBPJ9o4g2ZMVV3SWjmj+Wi8nAI0qsI6xocJFUmQjnTfCq4M9rUpi25cPEmDadeAf7c4CTlQ5cdOWL28GrRe691nB/XNxZkvZ2Hl0tLjxVPQhat5FGqSlCXnKCUZMMvpeOEN5raxrdNdbs1Gz2mQeSmbCftwEWswlwveHsRefH1W0L0Vwy6rk5Wjrc27Li/nAlxHBDDbuEM6ae2UHeTNBtAXabfGfDfDXXjFty8crPdiEyadEHp7dQ4vu5uint4iDSTQ4mo9s+mE7B2t9E42rh14ha7KOezdjQ1kpcXhlDYn6J3CblwdBvvxUMYSsqOvzgeKhqreiYf2pd5RgNyeGk3bozdlevL+gy9rOr/97TDvQWuHxSc7S/W2F26tqN+TEmc=
+  app: salted-potatoes
+  on:
+    repo: vivacioussalt/Vime

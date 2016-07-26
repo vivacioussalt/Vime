@@ -1,7 +1,6 @@
 'use strict';
 import React from 'react';
-import { getPreSignedUrl, getSupportedTypes, getQuestions, putObjectToS3, postVideoUrl } from '../recordUtil.js';
-import {Questions} from './Questions.jsx';
+import { getPreSignedUrl, getSupportedTypes, putObjectToS3, postVideoUrl } from '../recordUtil.js';
 
 export default class Record extends React.Component {
 
@@ -17,8 +16,6 @@ export default class Record extends React.Component {
       superBlob: null,
       recVidUrl: null,
       link: '',
-      allQuestions: null,
-      currentQuestion: null,
       finishedRecording: false,
       uploading: false,
       secondsElapsed: null,
@@ -31,7 +28,6 @@ export default class Record extends React.Component {
 
   componentDidMount() {
     this.checkUserProtocol();
-    this.setInitialQuestions();
     this.requestUserMedia(); 
   }
 
@@ -53,10 +49,6 @@ export default class Record extends React.Component {
           <a className={this.state.finishedRecording ? 'waves-effect waves-light btn blue darken-1' : 'hide waves-effect waves-light btn blue darken-1'} id="upload" onClick={this.uploadRec.bind(this)}>Share</a>
         </div>
 
-        <div className={this.state.isRec ? '' : 'hide'}>
-          <Questions question={this.state.currentQuestion}/>
-          <a className="waves-effect waves-light btn blue darken-1" id="next" onClick={this.nextQuestion.bind(this)}>How about another question?</a>
-        </div>
 
         <div className={this.state.uploading ? 'progress' : 'hide progress'}>
           <div className="indeterminate"></div>
@@ -77,21 +69,6 @@ export default class Record extends React.Component {
         '\n\nChanging protocol to HTTPS');
       location.protocol = 'HTTPS';
     }   
-  }
-
-  setInitialQuestions() {
-    //Get questions from server
-    getQuestions()
-    .then((questionsArr) => {
-      questionsArr = _.shuffle(questionsArr);
-      this.setState({
-        currentQuestion: questionsArr.shift().txt,
-        allQuestions: questionsArr
-      });
-    })
-    .catch((err) => {
-      throw err;
-    });
   }
 
   copyToClipboard() {
@@ -218,22 +195,6 @@ export default class Record extends React.Component {
     .catch((err) => {
       throw err;
     });
-  }
-
-  //function for when a user clicks the next button, they receive another question
-  nextQuestion() {
-    //this if statement implies that there is at least 1 question
-    if (this.state.allQuestions.length > 0) {
-      this.setState({
-        currentQuestion: this.state.allQuestions.shift().txt,
-        allQuestions: this.state.allQuestions
-      });
-    } else {
-      //if there are no more questions in the array, tell this to the user.
-      this.setState({
-        currentQuestion: 'Tentatively there are no more questions!'
-      });
-    }
   }
 
   tick() {

@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- '4.4'
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+deploy:
+  provider: heroku
+  api_key:
+    secure: JrkwdgY6XVkNWsA/4UwVFJDU+JsSnwcfdiaKcGyhSMSrzZHfZqaME8+h+0H3FnJ2++OlJlLzpD8UyuBEmOU+TSWPluhysdjfgoCt90DEclWS+Z+h8EvnYHmnBfwgRt2biyzYF/BzK4spx98/5PpIjK8lrbWYGnCqA7HOHDGJVu45nuC1A2RKoYDYZKhRpu57nvYvEQN+yXFA9g2e2Fp9lJXGZpWGcookmiz7Em/F4UcYQlel2xA8sj0xGF7Az+Mlao6ML1JojZ0cuVjSEpsCuWbphtheVi0mZJm8IvwXtBzZlUR3wUq09BToRxjDwsGFnBFzzd6xFWEmqcgtxQbrWJ1Qj8ERJHDNbxmRhi9HSRLWooUYGfCwbXijAL/tGZOM0wagPnlb6LlcIuSbRypB/dGsdLmcdRmJTtmZ6Kj9p1bjKT5QTAzq7MzopGYduj3uI+bEreZlKunNsuVXpEU/5TLP8hZICT//s+6aDenYFaH70cnoSqah7gvzjqx6LCEe+Nrh2AylkpgvA5N6WucNwRR7u9p0oV9DA+wOdAYepDUGHLlQYMdN7ZRHbeCz9Di8rYqzoTjZZz33flYOl28YYZyiCH6uc268quOSyNKsc5DKpQvPL4EJIabQbffN/qjh3Xlxv+NxNSyGXaubrZsVg8y6R7Lc5s70xsnt6onWY8Q=

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "seed": "node server/db/seed.js",
     "test": "echo \"Error: no test specified\"",
     "build:dev": "webpack --config --watch -d ./webpack.config.js",

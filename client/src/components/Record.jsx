@@ -49,7 +49,6 @@ export default class Record extends React.Component {
           <a className={this.state.finishedRecording ? 'waves-effect waves-light btn blue darken-1' : 'hide waves-effect waves-light btn blue darken-1'} id="upload" onClick={this.uploadRec.bind(this)}>Share</a>
         </div>
 
-
         <div className={this.state.uploading ? 'progress' : 'hide progress'}>
           <div className="indeterminate"></div>
         </div>
@@ -63,6 +62,8 @@ export default class Record extends React.Component {
   }
 
   checkUserProtocol() {
+    console.log('inside checkUserProtocol');
+
     let isSecureOrigin = location.protocol === 'https:' || location.host === 'localhost:3000';
     if (!isSecureOrigin) {
       alert('getUserMedia() must be run from a secure origin: HTTPS or localhost.' +
@@ -72,6 +73,8 @@ export default class Record extends React.Component {
   }
 
   copyToClipboard() {
+    console.log('inside copyToClipboard');
+
     //Copy share link to clipboard
     $('#shareLink').select();
     document.execCommand("copy");
@@ -79,6 +82,8 @@ export default class Record extends React.Component {
 
 
   requestUserMedia() {
+    console.log('inside requestUserMedia');
+
     //Use native web api for Media Recorder (https://developers.google.com/web/updates/2016/01/mediarecorder)
     //to get the user audio and video
     navigator.mediaDevices.getUserMedia({audio: true, video: true})
@@ -89,6 +94,8 @@ export default class Record extends React.Component {
   }
 
   handleConnect(stream) {
+    console.log('inside handleConnect');
+
     //Set the stream state
     //Take user media and create a url that will be added to the video tag src in the DOM
     console.log('Stream connected');
@@ -99,11 +106,15 @@ export default class Record extends React.Component {
   }
 
   handleError(error) {
+    console.log('inside handleError');
+
     //Catch and log error on request of user media
     console.log('error in request of user media:', error);
   }
 
   toggleRec() {
+    console.log('inside toggleRec');
+
     //If the user is recording invoke stopRec
     //else invoke startRec if the user is not recording
     if (this.state.isRec) {
@@ -115,6 +126,8 @@ export default class Record extends React.Component {
   }
 
   startRec() {
+    console.log('inside startRec');
+
     //Check browswer and set the supported types to options variable
     let options = getSupportedTypes();
     //Toggle button text and set isRec boolean to true and finishedRecordingb boolean to false
@@ -135,12 +148,16 @@ export default class Record extends React.Component {
   }
 
   startTimer() {
+    console.log('inside startTimer');
+
     // start the counter 
     this.setState({intervalHandle: setInterval(this.tick.bind(this), 1000)});
     this.setState({secondsElapsed: this.state.timeOfRecording});
   }
 
   handleDataAvailable(event) {
+    console.log('inside handleDataAvailable');
+
     //If there is data add the data to the blobs array
     if (event.data && event.data.size > 0) {
       this.setState({
@@ -150,6 +167,8 @@ export default class Record extends React.Component {
   }
 
   stopRec() {
+    console.log('inside stopRec');
+
     //Stop the mediaRecorder and toggle
     this.state.mediaRecorder.stop();
     let options = {
@@ -168,6 +187,8 @@ export default class Record extends React.Component {
   }
 
   uploadRec() {
+    console.log('inside uploadRec');
+
     //Set the uploading to true to show the loader bar
     this.setState({
       uploading: true

@@ -8,27 +8,16 @@
 
 var Sequelize = require('sequelize'); 
 require('dotenv').config();
-console.log(process.env)
-//If production use production database
-if (process.env.DATABASE_URL) {
-  var db = new Sequelize(process.env.DATABASE_URL, {
-    protocol: 'postgres',
-    dialect: 'postgres',
-    host: process.env.DATABASE_URL.split(':')[2],
-  //     port: 5432,
-  // host: 'ec2-54-243-199-79.compute-1.amazonaws.com',
+
+
+var db = new Sequelize(process.env.DATABASE_URL, {
+  protocol: 'postgres',
+  dialect: 'postgres',
+  host: process.env.DATABASE_URL.split(':')[2],
   dialectOptions: {
     ssl: true,
-  },
-  })
-} else {
-  // Change the arguments to sequelize as neccessary ('Database', 'username', 'password')
-  var db = new Sequelize('legacy', null, null, {
-    protocol: 'postgres', // or mysql
-    dialect: 'postgres', // or mysql
-    host: 'localhost'
-  })
-}
+  }
+});
 
 
 // TODO implement User and User Auth

@@ -2,8 +2,17 @@ var db = require('../db/db.js');
 var shortid = require('shortid');
 
 //return all questions from the database
-var getQuestions = function(req, res) {
+var getAllQuestions = function(req, res) {
   db.Question.findAll().then(function(questions) {
+    res.send(questions);
+  });
+};
+
+//return all questions for a USER from the database
+var getQuestionsForUser = function(req, res) {
+  db.Question.findAll({
+    where : { userId : req.query.uid }
+  }).then(function(questions) {
     res.send(questions);
   });
 };
@@ -37,7 +46,8 @@ var createQuestion = function(req, res) {
 
 
 module.exports = {
-  getQuestions: getQuestions,
+  getAllQuestions: getAllQuestions,
+  getQuestionsForUser: getQuestionsForUser,
   getQuestion: getQuestion,
   createQuestion: createQuestion
 };

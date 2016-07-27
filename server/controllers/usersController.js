@@ -1,33 +1,49 @@
-const db = require('../db/db.js');
+const User = require('../models/user');
 
-const User = db.User;
+const existsMessage = 'Username exists or incorrect password';
 
-function getUser(username, password) = {
+function postUser(req, res) {
+  const body = req.body;
+  findOrCreate(body.username, body.password)
+  .then(user => {
+    res.json(user.dataValues.id);
+  })
+  .catch(err => {
+    if (err.message === existsMessage) {
+      res.json({message: existsMessage});
+    } else {
+      res.sendStatus(500);
+    }
+  });
+}
+
+function findOrCreate(username, password) { 
   return User.findOne({ where: {username: username} })
-    .then(user => user.comparePassword(password))
+    .then(user => {
+      if (user) {
+        return findUser(user, username, password);
+      } else {
+        return createUser(user, username, password);
+      }
+    })
+    .catch(err => { throw err; });
+}
+
+function findUser(user, username, password) {
+  return user.comparePassword(password)
     .then(match => {
       if (match) {
         return user;
       } else {
-        throw new Error('Password does not match for ' + username);
+        throw new Error(existsMessage);
       }
     })
-    .catch(err => { console.log('Database error', err); });
 }
 
-function createUser(username, password) {
-  return User.findOne({ where: {username: username} })
-    .then(user => {
-      if (!user) {
-        return User.create({ username: username, password: password });
-      } else {
-        throw new Error('Username already exists');
-      }
-    })
-    .catch(err => { console.log('Database error', err); }) 
+function createUser(user, username, password) {
+  return User.create({ username: username, password: password });
 }
 
 module.exports = {
-  getUser: getUser,
-  createUser: createUser
+  postUser: postUser
 };

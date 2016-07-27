@@ -26,22 +26,21 @@ export default class Login extends React.Component {
       password: e.target.value,
       passwordInvalid: e.target.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/) ? false : true
     });
-    console.log(this.state.usernameInvalid || this.state.passwordInvalid);
   }
 
+  // need to set current user in app, just getting user id back here right now
   handleLogin(e) {
     e.preventDefault();
-    console.log(this.state); 
-    /*
     fetch('http://localhost:3000/api/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'appliation/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: this.state.username,
         password: this.state.password
       })
     })
-    */ 
+    .then(res => res.json())
+    .then(json => console.log(json));
   }
 
   render() {
@@ -65,7 +64,7 @@ export default class Login extends React.Component {
               </div>
             </div>
             <div className="row">
-              <button className="btn-large waves-effect waves-light blue darken-1" type="submit" disabled={`${this.state.usernameInvalid || this.state.passwordInvalid}`}>Login/SignUp</button>
+              <button className="btn-large waves-effect waves-light blue darken-1" type="submit" disabled={this.state.usernameInvalid || this.state.passwordInvalid}>Login/SignUp</button>
             </div>
           </form>
         </div>

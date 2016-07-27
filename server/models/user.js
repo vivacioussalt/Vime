@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const Promise = require('bluebird');
 const bcrypt = require('bcryptjs');
 
@@ -36,6 +37,4 @@ User.beforeCreate((user, options) => {
   })
 });
 
-User.sync();
-
-module.export = User;
+module.exports = User;

@@ -27,6 +27,9 @@ export default class Record extends React.Component {
     this.requestUserMedia(); 
   }
 
+  // share to submit
+  // clicking on submit will redirect you to topic. 
+
   render() {
     return (
       <div className="col s8 offset-s2">
@@ -36,14 +39,10 @@ export default class Record extends React.Component {
         <div>
           <br/>
           <a className="waves-effect waves-light btn blue darken-1" id="record" onClick={this.toggleRec.bind(this)}>{this.state.toggleRecText}</a>
-          <a className={this.state.finishedRecording ? 'waves-effect waves-light btn blue darken-1' : 'hide waves-effect waves-light btn blue darken-1'} id="upload" onClick={this.uploadRec.bind(this)}>Share</a>
+          <a className={this.state.finishedRecording ? 'waves-effect waves-light btn blue darken-1' : 'hide waves-effect waves-light btn blue darken-1'} id="upload" onClick={this.uploadRec.bind(this)}>Submit</a>
         </div>
         <div className={this.state.uploading ? 'progress' : 'hide progress'}>
           <div className="indeterminate"></div>
-        </div>
-        <div className={this.state.link ? '' : 'hide'}>
-          <input id='shareLink'value={this.state.link} />
-          <a className="waves-effect waves-light btn blue darken-1"  onClick={this.copyToClipboard}>Copy</a>
         </div>
       </div>
     );
@@ -59,14 +58,6 @@ export default class Record extends React.Component {
       location.protocol = 'HTTPS';
     }   
   }
-
-  copyToClipboard() {
-    console.log('inside copyToClipboard');
-
-    //Copy share link to clipboard
-    $('#shareLink').select();
-    document.execCommand("copy");
-  };
 
 
   requestUserMedia() {
@@ -192,6 +183,7 @@ export default class Record extends React.Component {
         link: `${window.location.origin}/videos/${code}`,
         uploading: false
       });
+      // redirect to new link
     })
     .catch((err) => {
       throw err;

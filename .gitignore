@@ -8,3 +8,4 @@ client/src/adapter.js
 // this is the amazon S3 API keys
 server/config.js
 .env
+npm-debug.log

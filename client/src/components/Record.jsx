@@ -1,6 +1,7 @@
 'use strict';
 import React from 'react';
 import { getPreSignedUrl, getSupportedTypes, putObjectToS3, postVideoUrl } from '../recordUtil.js';
+import { browserHistory } from 'react-router';
 
 export default class Record extends React.Component {
 
@@ -26,9 +27,6 @@ export default class Record extends React.Component {
     this.checkUserProtocol();
     this.requestUserMedia(); 
   }
-
-  // share to submit
-  // clicking on submit will redirect you to topic. 
 
   render() {
     return (
@@ -184,10 +182,10 @@ export default class Record extends React.Component {
         uploading: false
       });
       // redirect to new link
+      browserHistory.push(`/videos/${code}`);
     })
     .catch((err) => {
       throw err;
     });
   }
-
 }

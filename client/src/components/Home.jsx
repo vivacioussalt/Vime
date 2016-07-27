@@ -10,11 +10,13 @@ export let Home = function (props) {
       <h2 className="header center blue-text blue-darken-1">A seamless video chat experience</h2>
       <div className="row center">
         <h4 className="header col s12 light">Never miss another message again</h4>
-        <Link to="/record" id="download-button" className="btn-large waves-effect waves-light blue darken-1">
-          <span>record a video</span>
-        </Link>
+        <div className="row">
+          <Link to="/login" className="btn-large waves-effect waves-light blue darken-1">Login/Signup</Link>
+        </div>
+        <div className="row">
+          <Link to="/record" id="download-button" className="btn-large waves-effect waves-light blue darken-1">Ask a question</Link>
+        </div>
       </div>
-
       <div className="section">
         <div className="row">
           <div className="col s12 m4">

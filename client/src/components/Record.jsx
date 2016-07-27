@@ -18,10 +18,6 @@ export default class Record extends React.Component {
       link: '',
       finishedRecording: false,
       uploading: false,
-      secondsElapsed: null,
-      isCountDown: false,
-      timeOfRecording: 120,  
-      timeToShowReminder: 60,
       intervalHandle: null   
     };
   }
@@ -34,25 +30,17 @@ export default class Record extends React.Component {
   render() {
     return (
       <div className="col s8 offset-s2">
-
         <br/>
-        <div className={this.state.isCountDown ? '' : 'hide'}>
-          <div>Time left for the recording: {this.state.secondsElapsed}</div>
-        </div>
-
         <video className={this.state.finishedRecording ? 'hide' : ''} id="gum" src={this.state.streamVidUrl} autoPlay muted width="100%"></video>
         <video className={this.state.finishedRecording ? '' : 'hide'} id="recorded" src={this.state.recVidUrl} width="100%"></video>
-
         <div>
           <br/>
           <a className="waves-effect waves-light btn blue darken-1" id="record" onClick={this.toggleRec.bind(this)}>{this.state.toggleRecText}</a>
           <a className={this.state.finishedRecording ? 'waves-effect waves-light btn blue darken-1' : 'hide waves-effect waves-light btn blue darken-1'} id="upload" onClick={this.uploadRec.bind(this)}>Share</a>
         </div>
-
         <div className={this.state.uploading ? 'progress' : 'hide progress'}>
           <div className="indeterminate"></div>
         </div>
-
         <div className={this.state.link ? '' : 'hide'}>
           <input id='shareLink'value={this.state.link} />
           <a className="waves-effect waves-light btn blue darken-1"  onClick={this.copyToClipboard}>Copy</a>
@@ -121,7 +109,7 @@ export default class Record extends React.Component {
       this.stopRec();
     } else {
       this.startRec();
-      this.startTimer();
+      // this.startTimer();
     }
   }
 
@@ -145,14 +133,6 @@ export default class Record extends React.Component {
     //When data becomes available, call function to handle the data
     mediaRecorder.ondataavailable = this.handleDataAvailable.bind(this);
     mediaRecorder.start(10); // collect 10ms of data 
-  }
-
-  startTimer() {
-    console.log('inside startTimer');
-
-    // start the counter 
-    this.setState({intervalHandle: setInterval(this.tick.bind(this), 1000)});
-    this.setState({secondsElapsed: this.state.timeOfRecording});
   }
 
   handleDataAvailable(event) {
@@ -216,24 +196,6 @@ export default class Record extends React.Component {
     .catch((err) => {
       throw err;
     });
-  }
-
-  tick() {
-    if (this.state.secondsElapsed > 0){
-      // showing the reminder 
-      if (this.state.secondsElapsed === this.state.timeToShowReminder){ 
-        this.setState({isCountDown: true})
-      };
-      // count down  
-      this.setState({secondsElapsed: this.state.secondsElapsed - 1});
-    } else {
-      // only stop when it is recording eg, when the countdown is on
-      if (this.state.isCountDown === true){
-        this.stopRec();  
-        this.setState({isCountDown: false}); 
-        clearInterval(this.state.intervalHandle);
-      }; 
-    }
   }
 
 }

@@ -1,16 +1,18 @@
 const path = require('path');
 
 const questionsController = require('./controllers/questionsController');
+const answersController = require('./controllers/answersController');
 const videosController = require('./controllers/videosController');
 const usersController = require('./controllers/usersController');
 const router = require('express').Router();
 
-router.get('/api/questions', questionsController.getQuestions);
+router.get('/api/questions', questionsController.getAllQuestions);
 router.post('/api/questions', questionsController.createQuestion);
 
+//router.get('/api/answers', answersController.getAllQuestions);
+router.post('/api/answers', answersController.createAnswer);
+
 router.get('/api/presigned', videosController.generatePreSignedUrl);
-router.get('/api/videos', videosController.getVideo);
-router.post('/api/videos', videosController.createVideo);
 
 router.post('/api/login', usersController.postUser);
 

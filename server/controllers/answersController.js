@@ -1,9 +1,20 @@
 var db = require('../db/db.js');
 var shortid = require('shortid');
 
-//return all answers from the database
-var getAnswers = function(req, res) {
-  db.Answer.findAll().then(function(answers) {
+//return all answers for a USER from the database
+var getAnswersForUser = function(req, res) {
+  db.Answer.findAll({
+    where: { userId: req.query.uid }
+  }).then(function(answers) {
+    res.send(answers);
+  });
+};
+
+//return all answers for a QUESTION from the database
+var getAnswersForQuestion = function(req, res) {
+  db.Answer.findAll({
+    where: { questionId: req.query.qid }
+  }).then(function(answers) {
     res.send(answers);
   });
 };
@@ -37,7 +48,8 @@ var createAnswer = function(req, res) {
 
 
 module.exports = {
-  getAnswers: getAnswers,
+  getAnswersForUser: getAnswersForUser,
+  getAnswersForQuestion: getAnswersForQuestion,
   getAnswer: getAnswer,
   createAnswer: createAnswer
 };

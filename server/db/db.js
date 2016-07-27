@@ -9,7 +9,7 @@
 var Sequelize = require('sequelize'); 
 require('dotenv').config();
 
-var db = new Sequelize(process.env.DATABASE_URL, {
+const db = new Sequelize(process.env.DATABASE_URL, {
   protocol: 'postgres',
   dialect: 'postgres',
   host: process.env.DATABASE_URL.split(':')[2],
@@ -18,37 +18,4 @@ var db = new Sequelize(process.env.DATABASE_URL, {
   }
 });
 
-var User = db.define('user', {
-  username: Sequelize.STRING, 
-  password: Sequelize.STRING,
-});
-
-var Answer = db.define('answer', {
-  code: Sequelize.STRING,
-  url: Sequelize.STRING
-});
-
-//Setup User Video relationship
-Answer.belongsTo(User); 
-User.hasMany(Answer);
-
-var Question = db.define('question', {
-  code: Sequelize.STRING,
-  url: Sequelize.STRING
-});
-
-Question.belongsTo(User);
-User.hasMany(Question);
-
-Answer.belongsTo(Question);
-Question.hasMany(Answer);
-
-User.sync(); 
-Question.sync(); 
-Answer.sync();
-
-module.exports = {
-  Answer: Answer, 
-  Question: Question,
-  User: User
-}
+module.exports = db;

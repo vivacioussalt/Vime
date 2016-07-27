@@ -7,32 +7,27 @@
 // Then click open psql in the menu bar 
 
 var Sequelize = require('sequelize'); 
+require('dotenv').config();
 
-//If production use production database
-if (process.env.DATABASE_URL) {
-  var db = new Sequelize(process.env.DATABASE_URL, {
-    protocol: 'postgres',
-    dialect: 'postgres',
-    host: process.env.DATABASE_URL.split(':')[2]
-  })
-} else {
-  //Change the arguments to sequelize as neccessary ('Database', 'username', 'password')
-  var db = new Sequelize('greenfield', null, null, {
-    protocol: 'postgres', // or mysql
-    dialect: 'postgres', // or mysql
-    host: 'localhost'
-  })
-}
+
+var db = new Sequelize(process.env.DATABASE_URL, {
+  protocol: 'postgres',
+  dialect: 'postgres',
+  host: process.env.DATABASE_URL.split(':')[2],
+  dialectOptions: {
+    ssl: true,
+  }
+});
 
 
 // TODO implement User and User Auth
-// var User = db.define('user', {
-//   username: Sequelize.STRING, 
-//   password: Sequelize.STRING,
+var User = db.define('user', {
+  username: Sequelize.STRING, 
+  password: Sequelize.STRING,
 //   partnerId: Sequelize.INTEGER   
-// });
+});
 
-var Video = db.define('video', {
+var Answer = db.define('answer', {
   //Create a unique alphanumeric id
   code: Sequelize.STRING,
   url: Sequelize.STRING
@@ -42,14 +37,21 @@ var Video = db.define('video', {
 
 
 //Setup User Video relationship
-// Video.belongsTo(User); 
-// User.hasMany(Video);
+Answer.belongsTo(User); 
+User.hasMany(Answer);
 
 var Question = db.define('question', {
-  txt: Sequelize.STRING
+  code: Sequelize.STRING,
+  url: Sequelize.STRING
   // Allow for certain users to receive specific questions
   // receiverId: Sequelize.INTEGER 
 });
+
+Question.belongsTo(User);
+User.hasMany(Question);
+
+Answer.belongsTo(Question);
+Question.hasMany(Answer);
 
 
 //Allow for users to create questions, setup relationship between user and questions
@@ -57,10 +59,12 @@ var Question = db.define('question', {
 // User.hasMany(Question); 
 
 // User.sync(); 
-Video.sync(); 
+User.sync(); 
 Question.sync(); 
+Answer.sync();
 
 module.exports = {
-  Video: Video, 
-  Question: Question
+  Answer: Answer, 
+  Question: Question,
+  User: User
 }

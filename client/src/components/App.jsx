@@ -1,7 +1,6 @@
 'use strict';
 import React from 'react';
-import {Home} from './Home.jsx';
-
+import { Home } from './Home.jsx';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -10,18 +9,10 @@ export default class App extends React.Component {
 
 	//Render nested routes if the user has navigated to a nested route endpoint, otherwise render the home component
 	render() {
-		if (this.props.children) {
-			return (
-				<div className="row">
-					{this.props.children}
-	  		</div>
-			);
-		} else {
-			return (
-				<div>
-				  <Home />
-				</div>
-			);
-		}	
+    return (
+      <div>
+        {this.props.children || <Home />}
+      </div>
+    )
 	}
 }

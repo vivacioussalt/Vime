@@ -1,10 +1,27 @@
 const User = require('../models/user');
 
-function postUser(username, password) {
+const existsMessage = 'Username exists or incorrect password';
+
+function postUser(req, res) {
+  const body = req.body;
+  findOrCreate(body.username, body.password)
+  .then(user => {
+    res.json(user.dataValues.id);
+  })
+  .catch(err => {
+    if (err.message === existsMessage) {
+      res.json({message: existsMessage});
+    } else {
+      res.sendStatus(500);
+    }
+  });
+}
+
+function findOrCreate(username, password) { 
   return User.findOne({ where: {username: username} })
     .then(user => {
       if (user) {
-        return getUser(user, username, password);
+        return findUser(user, username, password);
       } else {
         return createUser(user, username, password);
       }
@@ -12,13 +29,13 @@ function postUser(username, password) {
     .catch(err => { throw err; });
 }
 
-function getUser(user, username, password) {
+function findUser(user, username, password) {
   return user.comparePassword(password)
     .then(match => {
       if (match) {
         return user;
       } else {
-        throw new Error('Username exits or incorrect password for ' + username);
+        throw new Error(existsMessage);
       }
     })
 }

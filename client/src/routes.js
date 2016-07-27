@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Route} from 'react-router';
 import App from './components/App.jsx';
-import Login from './components/Login.jsx';
+import Login from './containers/Login.jsx';
 import Record from './components/Record.jsx';
 import VideoPlayer from './components/VideoPlayer.jsx';
 

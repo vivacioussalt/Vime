@@ -37,6 +37,7 @@ var createQuestion = function(req, res) {
 
 
 module.exports = {
-  getAnswers: getAnswers,
-  createAnswer: createAnswer
+  getQuestions: getQuestions,
+  getQuestion: getQuestion,
+  createQuestion: createQuestion
 };

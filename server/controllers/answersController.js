@@ -38,5 +38,6 @@ var createAnswer = function(req, res) {
 
 module.exports = {
   getAnswers: getAnswers,
+  getAnswer: getAnswer,
   createAnswer: createAnswer
 };

@@ -32,20 +32,20 @@ export let getSupportedTypes = () => {
 
 
 //function that does a GET request to get an array of questions from our database
-export let getQuestions = () => {
-  return new Promise((resolve, reject) => {
-    $.ajax({
-      type: 'GET', 
-      url: '/api/questions', 
-      success: function(data) {
-        resolve(data);
-      },
-      error: function() {
-        reject('Error with getQuestions');
-      }
-    });
-  })
-};
+// export let getQuestions = () => {
+//   return new Promise((resolve, reject) => {
+//     $.ajax({
+//       type: 'GET', 
+//       url: '/api/questions', 
+//       success: function(data) {
+//         resolve(data);
+//       },
+//       error: function() {
+//         reject('Error with getQuestions');
+//       }
+//     });
+//   })
+// };
 
 //Promise that returns result of ajax request
 export let putObjectToS3 = (data) => {
@@ -79,7 +79,7 @@ export let postVideoUrl = (url) => {
     $.ajax({
       type: 'POST', 
       data: data,
-      url: '/api/videos', 
+      url: '/api/questions', 
       success: function(data) {
         //If successful, post video url to db
         resolve(data.code);

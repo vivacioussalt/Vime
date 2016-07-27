@@ -10,7 +10,9 @@
     "build:prod": "webpack --config ./webpack.config.js",
     "postinstall": "cp ./node_modules/webrtc-adapter/out/adapter.js ./client/src && npm run build:prod"
   },
-  "engines":{ "node": "4.4.7" },
+  "engines": {
+    "node": "4.4.7"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -23,7 +25,9 @@
     "jquery": "^3.1.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
+    "redux": "^3.5.2",
     "sequelize": "^3.23.4",
     "shortid": "^2.2.6",
     "webrtc-adapter": "^1.4.0"

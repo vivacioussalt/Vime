@@ -3,8 +3,9 @@
 > Vime
 
 ## Team
-
-  - Development Team Members: Billy Lan, Michael De La Cruz, Edmund To, Clay Han
+  
+  - The Better Team Members: Carl Chen, June Won, Keith Wong, France Yang
+  - Legacy Team Members: Billy Lan, Michael De La Cruz, Edmund To, Clay Han
 
 ## Table of Contents
 
@@ -91,7 +92,7 @@ https://elements.heroku.com/addons/heroku-postgresql
 If you choose to run Webpack on production, run the following command to allow heroku to install devDependencies
 
 ```sh
-heroku config:set NPM_CONFIG_PRODUCTION=false
+heroku config:set --app <your app name> NPM_CONFIG_PRODUCTION=false
 ```
 
 

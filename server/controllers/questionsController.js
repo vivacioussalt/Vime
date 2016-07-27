@@ -18,7 +18,7 @@ var getQuestionsForUser = function(req, res) {
 };
 
 //Get question video by code and send video to client
-var getQuestion= function(req, res) {
+var getQuestion = function(req, res) {
   console.log('Getting QUESTION video with code:', req.query.code);
   Question.findOne({ 
     where: { code: req.query.code } 

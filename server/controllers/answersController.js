@@ -1,4 +1,5 @@
 var Answer = require('../models/models.js').Answer;
+var Question = require('../models/models.js').Question;
 var shortid = require('shortid');
 
 //return all answers for a USER from the database
@@ -12,15 +13,19 @@ var getAnswersForUser = function(req, res) {
 
 //return all answers for a QUESTION from the database
 var getAnswersForQuestion = function(req, res) {
-  Answer.findAll({
-    where: { questionId: req.query.qid }
-  }).then(function(answers) {
-    res.send(answers);
-  });
+  Question.findOne({
+    where: {code: req.query.code}
+  }).then(function(question) {
+    Answer.findAll({
+      where: { questionId: question.id }
+    }).then(function(answers) {
+      res.send(answers);
+    });
+  })
 };
 
 //Get answer video by code and send video to client
-var getAnswer= function(req, res) {
+var getAnswer = function(req, res) {
   console.log('Getting ANSWER video with code:', req.query.code);
   Answer.findOne({ 
     where: { code: req.query.code } 

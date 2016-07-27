@@ -1,5 +1,6 @@
 var db = require('./db.js');
-const User = db.User;
+const models = require('../models/models');
+const User = models.User;
 
 User.create({username: 'Louise', password: 'Belcher'})
   .then(() => User.findOne({username: 'Louise'}))

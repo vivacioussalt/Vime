@@ -1,16 +1,16 @@
-var db = require('../db/db.js');
+var Question = require('../models/models.js').Question;
 var shortid = require('shortid');
 
 //return all questions from the database
 var getAllQuestions = function(req, res) {
-  db.Question.findAll().then(function(questions) {
+  Question.findAll().then(function(questions) {
     res.send(questions);
   });
 };
 
 //return all questions for a USER from the database
 var getQuestionsForUser = function(req, res) {
-  db.Question.findAll({
+  Question.findAll({
     where : { userId : req.query.uid }
   }).then(function(questions) {
     res.send(questions);
@@ -20,7 +20,7 @@ var getQuestionsForUser = function(req, res) {
 //Get question video by code and send video to client
 var getQuestion= function(req, res) {
   console.log('Getting QUESTION video with code:', req.query.code);
-  db.Question.findOne({ 
+  Question.findOne({ 
     where: { code: req.query.code } 
   }).then(function(question) {
     res.send(question);
@@ -31,7 +31,7 @@ var getQuestion= function(req, res) {
 //Send code to client on success
 var createQuestion = function(req, res) {
   console.log('Creating QUESTION video with url:', req.body.publicUrl);
-  db.Question.create({
+  Question.create({
     url: req.body.publicUrl,
     code: shortid.generate()
   })

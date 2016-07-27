@@ -1,9 +1,9 @@
-var db = require('../db/db.js');
+var Answer = require('../models/models.js').Answer;
 var shortid = require('shortid');
 
 //return all answers for a USER from the database
 var getAnswersForUser = function(req, res) {
-  db.Answer.findAll({
+  Answer.findAll({
     where: { userId: req.query.uid }
   }).then(function(answers) {
     res.send(answers);
@@ -12,7 +12,7 @@ var getAnswersForUser = function(req, res) {
 
 //return all answers for a QUESTION from the database
 var getAnswersForQuestion = function(req, res) {
-  db.Answer.findAll({
+  Answer.findAll({
     where: { questionId: req.query.qid }
   }).then(function(answers) {
     res.send(answers);
@@ -22,7 +22,7 @@ var getAnswersForQuestion = function(req, res) {
 //Get answer video by code and send video to client
 var getAnswer= function(req, res) {
   console.log('Getting ANSWER video with code:', req.query.code);
-  db.Answer.findOne({ 
+  Answer.findOne({ 
     where: { code: req.query.code } 
   }).then(function(answer) {
     res.send(answer);
@@ -33,7 +33,7 @@ var getAnswer= function(req, res) {
 //Send code to client on success
 var createAnswer = function(req, res) {
   console.log('Creating ANSWER video with url:', req.body.publicUrl);
-  db.Answer.create({
+  Answer.create({
     url: req.body.publicUrl,
     code: shortid.generate()
   })

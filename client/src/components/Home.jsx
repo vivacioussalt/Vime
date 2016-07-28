@@ -9,6 +9,7 @@ export let Home = function (props) {
       <h2 className="header center blue-text blue-darken-1">A seamless video chat experience</h2>
       <div className="row center">
         <h4 className="header col s12 light">Never miss another message again</h4>
+        <Link to="/profile">Profile</Link>
         <div className="row">
           <Link to="/record/question" id="download-button" className="btn-large waves-effect waves-light blue darken-1">Ask a question</Link>
         </div>

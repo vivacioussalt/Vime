@@ -1,3 +1,6 @@
+import { checkStatus, toJSON } from './fetchUtils';
+import { push } from 'react-router-redux';
+
 function setUser(user) {
   return {
     type: 'LOGIN_SUCCESS',
@@ -15,10 +18,12 @@ export default function login(username, password) {
         password: password
       })
     })
-    .then(res => res.json())
+    .then(checkStatus)
+    .then(toJSON)
     .then(user => dispatch(setUser(user)))
+    .then(() => dispatch(push('/')))
     .catch(err => {
-      console.log(err);
+      throw err;
     })
   }
 }

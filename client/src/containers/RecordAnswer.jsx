@@ -10,20 +10,19 @@ class RecordAnswer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: this.props.params.code
+      code: this.props.params.code,
+      questionId: this.props.questionsByCode[this.props.params.code].id
     }
     this.addToState = this.addToState.bind(this);
   }
 
   addToState(data) {
-    console.log('code', this.state.code)
-    var questionId = this.props.questionsByCode[this.state.code].id
     var action = {
       questionCode: this.state.code,
       answer: {
         ...data,
         userId: this.props.user.id,
-        questionId: questionId       
+        questionId: this.state.questionId       
       }
     }
     // call action creator
@@ -38,7 +37,7 @@ class RecordAnswer extends React.Component {
   render() {
     return (
       <div>
-        <Record addToState={this.addToState} apiUrl={'/api/answers'} />
+        <Record addToState={this.addToState} apiUrl={'/api/answers'} userId={this.props.user.id} questionId={this.state.questionId} />
       </div>
     );
   }

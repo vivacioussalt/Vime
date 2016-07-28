@@ -172,7 +172,7 @@ export default class Record extends React.Component {
     })
     .then((videoData) => {
       //Take the video's publicUrl and post to the server
-      return postVideoUrl(videoData.publicUrl, this.props.apiUrl);
+      return postVideoUrl(videoData.publicUrl, this.props.apiUrl, this.props.userId, this.props.questionId);
     })
     .then((data) => {
       // call the container's function which dispatches action

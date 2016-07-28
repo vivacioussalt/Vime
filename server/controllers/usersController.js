@@ -25,12 +25,12 @@ function postUser(req, res) {
   })
   .spread((user, created) => {
     if (created) {
-      res.json(user.dataValues); 
+      res.json(user); 
     } else {
       user.comparePassword(body.password)
       .then(match => {
         if (match) {
-          res.json(user.dataValues);
+          res.json(user);
         } else {
           res.json({message: 'Username exists/Incorrect Password'});
         }

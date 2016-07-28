@@ -173,7 +173,7 @@ export default class Record extends React.Component {
     })
     .then((videoData) => {
       //Take the video's publicUrl and post to the server
-      return postVideoUrl(videoData.publicUrl);
+      return postVideoUrl(videoData.publicUrl, this.props.apiUrl);
     })
     .then((code) => {
       //Set the share link and remove the spinner from the page

@@ -70,16 +70,16 @@ export let putObjectToS3 = (data) => {
 //Function that is invoked after success of saving video to aws s3
 //Posts video public url to server to be saved
 //If post successfull server will respond with share code for video
-export let postVideoUrl = (url) => {
+export let postVideoUrl = (s3url, apiUrl) => {
   //Post to server with publicURL of s3 video
   let data = {
-    publicUrl: url
+    publicUrl: s3url
   };
   return new Promise((resolve, reject) => {
     $.ajax({
       type: 'POST', 
       data: data,
-      url: '/api/questions', 
+      url: apiUrl, 
       success: function(data) {
         //If successful, post video url to db
         resolve(data.code);

@@ -21,9 +21,9 @@ export default function user(state = null, action) {
     case 'LOGIN_SUCCESS':
       return action.user;
     case 'ADD_USER_QUESTION':
-      return
+      return {...state, questions: questions(state.questions, action)};
     case 'ADD_USER_ANSWER':
-      
+      return {...state, answers: answers(state.answers, action)}; 
     default:
       return state;
   }

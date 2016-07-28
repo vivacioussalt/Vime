@@ -11,9 +11,6 @@ export let Home = function (props) {
       <div className="row center">
         <h4 className="header col s12 light">Never miss another message again</h4>
         <div className="row">
-          <Link to="/login" className="btn-large waves-effect waves-light blue darken-1">Login/Signup</Link>
-        </div>
-        <div className="row">
           <Link to="/record/question" id="download-button" className="btn-large waves-effect waves-light blue darken-1">Ask a question</Link>
         </div>
       </div>

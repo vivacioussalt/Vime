@@ -72,11 +72,14 @@ export let putObjectToS3 = (data) => {
 //If post successfull server will respond with share code for video
 export let postVideoUrl = (s3url, apiUrl, userId, questionId) => {
   //Post to server with publicURL of s3 video
+
   let data = {
     publicUrl: s3url,
-    userId: userId,
     questionId: questionId
   };
+  if (userId) {
+    data.userId = userId;
+  }
   return new Promise((resolve, reject) => {
     $.ajax({
       type: 'POST', 

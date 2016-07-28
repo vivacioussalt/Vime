@@ -5,11 +5,9 @@ import { connect } from 'react-redux';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
 
 
-// THIS IS BROKEN, CURRENTLY NOT FETCHING RIGHT VIDEO BECAUSE VIDEOS AREN'T UPLOADING
 
 export default class Topic extends React.Component {
   constructor(props) {
-    console.log('THE TOPIC CONTAINER IS BROKEN, CARL WILL FIX IT')
     super(props)
     const code = this.props.params.code;
     const question = this.props.questionsByCode[code];

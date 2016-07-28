@@ -14,7 +14,7 @@ class RecordQuestion extends React.Component {
   addToState(data) {
     var question = {
       ...data,
-      userId: this.props.user.id
+      userId: this.props.userId
     }
     // call action creator
     this.props.addQuestion(question);
@@ -24,7 +24,7 @@ class RecordQuestion extends React.Component {
 
   render(){
     return (
-      <div><Record addToState={this.addToState} apiUrl={'/api/questions'} userId={this.props.user.id}/></div>
+      <div><Record addToState={this.addToState} apiUrl={'/api/questions'} userId={this.props.userId}/></div>
     );
   }
 }
@@ -32,7 +32,7 @@ class RecordQuestion extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    userId: state.user ? state.user.id : null 
   };
 }
 function mapDispatchToProps(dispatch){

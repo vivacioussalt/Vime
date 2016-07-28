@@ -21,7 +21,7 @@ class RecordAnswer extends React.Component {
       questionCode: this.state.code,
       answer: {
         ...data,
-        userId: this.props.user.id,
+        userId: this.props.userId,
         questionId: this.state.questionId       
       }
     }
@@ -37,7 +37,7 @@ class RecordAnswer extends React.Component {
   render() {
     return (
       <div>
-        <Record addToState={this.addToState} apiUrl={'/api/answers'} userId={this.props.user.id} questionId={this.state.questionId} />
+        <Record addToState={this.addToState} apiUrl={'/api/answers'} userId={this.props.userId} questionId={this.state.questionId} />
       </div>
     );
   }
@@ -46,7 +46,7 @@ class RecordAnswer extends React.Component {
 function mapStateToProps(state) {
   return {
     questionsByCode: state.questionsByCode,
-    user: state.user
+    userId: state.user ? state.user.id : null 
   };
 }
 

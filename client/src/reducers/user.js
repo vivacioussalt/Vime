@@ -1,19 +1,11 @@
+// using reducer composition
+
 function questions(state = [], action) {
-  switch(action.type) {
-    case 'ADD_USER_QUESTION':
-      return [...state, action.questionId];
-    default:
-      return state;
-  }
+  return [...state, action.questionId];
 }
 
 function answers(state = [], action) {
-  switch(action.type) {
-    case 'ADD_USER_ANSWER':
-      return [...state, action.answer]; 
-    default:
-      return state;
-  }
+  return [...state, action.answer]; 
 }
 
 export default function user(state = null, action) {

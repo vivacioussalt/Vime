@@ -13,15 +13,11 @@ var getAnswersForUser = function(req, res) {
 
 //return all answers for a QUESTION from the database
 var getAnswersForQuestion = function(req, res) {
-  Question.findOne({
-    where: {code: req.query.code}
-  }).then(function(question) {
-    Answer.findAll({
-      where: { questionId: question.id }
-    }).then(function(answers) {
-      res.send(answers.dataValues);
-    });
-  })
+  Answer.findAll({
+    where: { questionId: req.query.questionId }
+  }).then(function(answers) {
+    res.send(answers.dataValues);
+  });
 };
 
 //Get answer video by code and send video to client

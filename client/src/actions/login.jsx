@@ -16,7 +16,7 @@ export default function login(username, password) {
       })
     })
     .then(res => res.json())
-    .then(user => {console.log(user); return dispatch(setUser(user));})
+    .then(user => dispatch(setUser(user)))
     .catch(err => {
       console.log(err);
     })

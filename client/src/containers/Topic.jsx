@@ -15,7 +15,7 @@ export default class Topic extends React.Component {
 
   componentDidMount() {
     const code = this.props.code;
-    const question = this.props.questionsById[]
+    const question = this.props.questionsByCode[code]
 
     // find the correct question object by using params.id to match the code in this.props.questionsById
     // set this url to state, so it can be passed down into video src

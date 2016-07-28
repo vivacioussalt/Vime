@@ -11,6 +11,7 @@ class Navigation extends React.Component {
   }
   handleLogout(){
     this.props.logout();
+    this.context.router.push('/');
   }
   render() {
     return (
@@ -40,6 +41,10 @@ class Navigation extends React.Component {
     );
   }
 }
+
+Navigation.contextTypes = {
+  router:React.PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
   return {

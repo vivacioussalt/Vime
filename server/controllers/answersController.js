@@ -14,7 +14,7 @@ var getAnswersForUser = function(req, res) {
 //return all answers for a QUESTION from the database
 var getAnswersForQuestion = function(req, res) {
   Answer.findAll({
-    where: { questionId: question.id }
+    where: { questionId: req.query.questionId }
   }).then(function(answers) {
     res.send(answers.dataValues);
   });

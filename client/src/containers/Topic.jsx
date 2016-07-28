@@ -8,13 +8,15 @@ export default class Topic extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      code: this.props.params.id
-      // questionUrl
-      // answers
+      questionUrl: '',
+      answers: []
     }
   }
 
   componentDidMount() {
+    const code = this.props.code;
+    const question = this.props.questionsById[]
+
     // find the correct question object by using params.id to match the code in this.props.questionsById
     // set this url to state, so it can be passed down into video src
     // find answers urls, so they can be passed down into video grid
@@ -45,11 +47,12 @@ export default class Topic extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     questionsById: state.questionsById,
     answersOfQuestions: state.answersOfQuestions,
-    user: state.user
+    user: state.user,
+    code: ownProps.params.id
   };
 }
 // function mapDispatchToProps(dispatch) {

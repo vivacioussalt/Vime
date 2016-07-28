@@ -1,5 +1,4 @@
 'use strict';
-import React from 'react';
 import { getPreSignedUrl, getSupportedTypes, putObjectToS3, postVideoUrl } from '../recordUtil.js';
 import { browserHistory } from 'react-router';
 

@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import login from '../actions/login';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,16 +34,13 @@ export default class Login extends React.Component {
   // need to set current user in app, just getting user id back here right now
   handleLogin(e) {
     e.preventDefault();
-    fetch('http://localhost:3000/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      })
-    })
-    .then(res => res.json())
-    .then(json => console.log(json));
+    this.props.login(this.state.username, this.state.password);
+    this.setState({
+      username: '',
+      password: '',
+      usernameInvalid: true,
+      passwordInvalid: true    
+    });
   }
 
   render() {
@@ -72,3 +72,13 @@ export default class Login extends React.Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    login: bindActionCreators(login, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login)
+
+

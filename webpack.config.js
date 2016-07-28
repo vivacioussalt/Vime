@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: [
     __dirname + '/client/src/index.js',
@@ -7,6 +9,11 @@ module.exports = {
     path: __dirname + '/client',
     filename: 'bundle.js'
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      'React': 'react'
+    })
+  ],
   module: {
     loaders: [{
       test: /\.jsx?$/,

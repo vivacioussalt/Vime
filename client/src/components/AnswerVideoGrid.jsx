@@ -1,5 +1,3 @@
-import React from 'react';
-
 let AnswerVideoGrid = ({videos}) => {
   return (
     <div className="row center">

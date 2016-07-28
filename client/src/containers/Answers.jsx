@@ -1,4 +1,3 @@
-import React from 'react';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
 
 

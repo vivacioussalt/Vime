@@ -19,6 +19,11 @@ const User = db.define('user', {
           resolve(match);
         });
       })
+    },
+    toJSON: function() {
+      var values = this.get();
+      delete values.password;
+      return values;
     }
   }
 });

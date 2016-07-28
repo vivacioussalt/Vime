@@ -37,10 +37,7 @@ var createQuestion = function(req, res) {
   })
   .then(function(question) {
     console.log('created QUESTION video:', question);
-    res.send({
-      success: 'Question video created',
-      code: question.code
-    });
+    res.send(question.dataValues);
   });
 };
 

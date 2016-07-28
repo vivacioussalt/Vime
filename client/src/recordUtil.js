@@ -82,7 +82,7 @@ export let postVideoUrl = (s3url, apiUrl) => {
       url: apiUrl, 
       success: function(data) {
         //If successful, post video url to db
-        resolve(data.code);
+        resolve(data);
       },
       error: function() {
         reject('Unable to post video to database');

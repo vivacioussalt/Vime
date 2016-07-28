@@ -175,13 +175,11 @@ export default class Record extends React.Component {
       //Take the video's publicUrl and post to the server
       return postVideoUrl(videoData.publicUrl, this.props.apiUrl);
     })
-    .then((code) => {
+    .then((data) => {
       //Set the share link and remove the spinner from the page
-      this.props.addQuestion(
-        { id: 1,
-          code: code
-        }
-      )
+      console.log(data);
+      var code = data.code
+      this.props.addQuestion(data)
       this.setState({
         link: `${window.location.origin}/videos/${code}`,
         uploading: false

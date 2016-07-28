@@ -34,7 +34,8 @@
     "redux-thunk": "^2.1.0",
     "sequelize": "^3.23.4",
     "shortid": "^2.2.6",
-    "webrtc-adapter": "^1.4.0"
+    "webrtc-adapter": "^1.4.0",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",

@@ -7,7 +7,7 @@ var getAnswersForUser = function(req, res) {
   Answer.findAll({
     where: { userId: req.query.uid }
   }).then(function(answers) {
-    res.send(answers);
+    res.send(answers.dataValues);
   });
 };
 
@@ -19,7 +19,7 @@ var getAnswersForQuestion = function(req, res) {
     Answer.findAll({
       where: { questionId: question.id }
     }).then(function(answers) {
-      res.send(answers);
+      res.send(answers.dataValues);
     });
   })
 };
@@ -30,7 +30,7 @@ var getAnswer = function(req, res) {
   Answer.findOne({ 
     where: { code: req.query.code } 
   }).then(function(answer) {
-    res.send(answer);
+    res.send(answer.dataValues);
   });
 };
 
@@ -44,10 +44,7 @@ var createAnswer = function(req, res) {
   })
   .then(function(answer) {
     console.log('created ANSWER video:', answer);
-    res.send({
-      success: 'Answer video created',
-      code: answer.code
-    });
+    res.send(answer.dataValues);
   });
 };
 

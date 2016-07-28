@@ -2,7 +2,7 @@ const path = require('path');
 
 const questionsController = require('./controllers/questionsController');
 const answersController = require('./controllers/answersController');
-const videosController = require('./controllers/videosController');
+const generatePreSignedUrl = require('./utility/generatePreSignedUrl');
 const usersController = require('./controllers/usersController');
 const router = require('express').Router();
 
@@ -14,7 +14,7 @@ router.get('/api/question', questionsController.getQuestion);
 router.get('/api/answers', answersController.getAnswersForQuestion);
 router.post('/api/answers', answersController.createAnswer);
 
-router.get('/api/presigned', videosController.generatePreSignedUrl);
+router.get('/api/presigned', generatePreSignedUrl);
 
 router.post('/api/login', usersController.postUser);
 

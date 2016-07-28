@@ -4,7 +4,7 @@ var shortid = require('shortid');
 //return all questions from the database
 var getAllQuestions = function(req, res) {
   Question.findAll().then(function(questions) {
-    res.send(questions);
+    res.send(questions.dataValues);
   });
 };
 
@@ -13,7 +13,7 @@ var getQuestionsForUser = function(req, res) {
   Question.findAll({
     where : { userId : req.query.uid }
   }).then(function(questions) {
-    res.send(questions);
+    res.send(questions.dataValues);
   });
 };
 
@@ -23,7 +23,7 @@ var getQuestion = function(req, res) {
   Question.findOne({ 
     where: { code: req.query.code } 
   }).then(function(question) {
-    res.send(question);
+    res.send(question.dataValues);
   });
 };
 

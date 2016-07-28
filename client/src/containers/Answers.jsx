@@ -1,4 +1,5 @@
 import React from 'react';
+import AnswerVideoGrid from './..components/AnswerVideoGrid.jsx';
 
 export default class Answers extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class Answers extends React.Component {
 
   render() {
     <div> 
-      <VideoPlayer />
+      <AnswerVideoGrid videos={[]} />
     </div>
   }
 }

@@ -40,6 +40,8 @@ var createAnswer = function(req, res) {
   console.log('Creating ANSWER video with url:', req.body.publicUrl);
   Answer.create({
     url: req.body.publicUrl,
+    userId: req.body.userId,
+    questionId: req.body.questionId,
     code: shortid.generate()
   })
   .then(function(answer) {

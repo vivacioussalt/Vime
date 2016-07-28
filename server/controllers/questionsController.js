@@ -33,6 +33,7 @@ var createQuestion = function(req, res) {
   console.log('Creating QUESTION video with url:', req.body.publicUrl);
   Question.create({
     url: req.body.publicUrl,
+    userId: req.body.userId,
     code: shortid.generate()
   })
   .then(function(question) {

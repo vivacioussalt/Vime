@@ -3,12 +3,12 @@ export default function answersOfQuestions(state = {}, action) {
     case 'ADD_ANSWER':
       return {
         ...state,
-        state[action.questionId]: state[action.questionId].concat(action.answer)
+        state[action.questionCode]: state[action.questionCode].concat(action.answer)
       }
     case 'ADD_ALL_ANSWERS':
       return {
         ...state,
-        state[action.questionId]: action.answers
+        state[action.questionCode]: action.answers
         // action.answers must be formatted properly as an array of objects {answer.id: answer } 
       }
     default:

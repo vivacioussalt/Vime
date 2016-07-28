@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import user from './user';
-import questionsById from './questionsById';
+import questionsByCode from './questionsByCode';
 import answersOfQuestion from './answersOfQuestion';
 
 const rootReducer = combineReducers({
-  questionsById,
+  questionsByCode,
   user,
   answersOfQuestion,
   routing: routerReducer

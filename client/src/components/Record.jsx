@@ -1,7 +1,6 @@
 'use strict';
 import React from 'react';
 import { getPreSignedUrl, getSupportedTypes, putObjectToS3, postVideoUrl } from '../recordUtil.js';
-import { browserHistory } from 'react-router';
 
 export default class Record extends React.Component {
 
@@ -176,15 +175,12 @@ export default class Record extends React.Component {
       return postVideoUrl(videoData.publicUrl, this.props.apiUrl);
     })
     .then((data) => {
-      //Set the share link and remove the spinner from the page
+      // call the container's function which dispatches action
       this.props.addToState(data);
-      var code = this.props.questionCode || data.code
+      //Set the share link and remove the spinner from the page
       this.setState({
-        link: `${window.location.origin}/qa/${code}`,
         uploading: false
       });
-      // redirect to new link
-      browserHistory.push(`/qa/${code}`);
     })
     .catch((err) => {
       throw err;

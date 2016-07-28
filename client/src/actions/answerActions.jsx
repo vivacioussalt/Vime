@@ -1,6 +1,7 @@
-function addAnswer(answer) {
+function addAnswer({questionCode, answer}) {
   return {
     type: 'ADD_ANSWER',
+    questionCode,
     answer
   }
 }

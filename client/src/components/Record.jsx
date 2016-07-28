@@ -178,9 +178,11 @@ export default class Record extends React.Component {
       // call the container's function which dispatches action
       this.props.addToState(data);
       //Set the share link and remove the spinner from the page
-      this.setState({
-        uploading: false
-      });
+      // NEED TO FIX: 
+      // ERROR IS: CAN'T SET STATE ON UNMOUNTED COMPONENT
+      // this.setState({
+      //   uploading: false
+      // });
     })
     .catch((err) => {
       throw err;

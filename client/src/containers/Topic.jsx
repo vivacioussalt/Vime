@@ -4,24 +4,29 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
 
+
+// THIS IS BROKEN, CURRENTLY NOT FETCHING RIGHT VIDEO BECAUSE VIDEOS AREN'T UPLOADING
+
 export default class Topic extends React.Component {
   constructor(props) {
+    console.log('THE TOPIC CONTAINER IS BROKEN, CARL WILL FIX IT')
     super(props)
+    const code = this.props.params.code;
+    const question = this.props.questionsByCode[code];
+    const answers = this.props.answersOfQuestions[code];
     this.state = {
-      code: '',
-      questionUrl: '',
-      answers: []
+      code,
+      question, 
+      answers: answers || []
     }
   }
 
   componentDidMount() {
-    const code = this.props.params.code
-    const question = this.props.questionsByCode[code]
-    this.setState({
-      code: code,
-      questionUrl: question.url
-      // answers: this.props.answersOfQuestions[code] || []
-    })
+    // this.setState({
+    //   code: code,
+    //   questionUrl: question.url
+    //   // answers: this.props.answersOfQuestions[code] || []
+    // })
     // find the correct question object by using params.id to match the code in this.props.questionsById
     // set this url to state, so it can be passed down into video src
     // find answers urls, so they can be passed down into video grid
@@ -35,7 +40,7 @@ export default class Topic extends React.Component {
         </div>
 
         <div className="col s8 offset-s2">
-            <video controls src={this.state.questionUrl} width="100%"/>
+            <video controls src={this.state.question.url} width="100%"/>
         </div>
 
         <br />
@@ -52,12 +57,11 @@ export default class Topic extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     questionsByCode: state.questionsByCode,
-    // answersOfQuestions: state.answersOfQuestions,
+    answersOfQuestions: state.answersOfQuestions,
     user: state.user
-    // code: ownProps.params.id
   };
 }
 // function mapDispatchToProps(dispatch) {

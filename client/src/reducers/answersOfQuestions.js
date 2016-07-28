@@ -5,7 +5,7 @@ export default function answersOfQuestions(state = {}, action) {
         ...state,
         state[action.questionId]: state[action.questionId].concat(action.answer)
       }
-    case 'GET_ANSWERS':
+    case 'ADD_ALL_ANSWERS':
       return {
         ...state,
         state[action.questionId]: action.answers

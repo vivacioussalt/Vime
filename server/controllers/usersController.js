@@ -6,7 +6,7 @@ function postUser(req, res) {
   const body = req.body;
   findOrCreate(body.username, body.password)
   .then(user => {
-    res.json({id: user.dataValues.id});
+    res.json(user.dataValues);
   })
   .catch(err => {
     if (err.message === existsMessage) {

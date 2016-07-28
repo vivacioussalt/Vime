@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.4.7",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "bcryptjs": "^2.3.0",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",

@@ -177,8 +177,8 @@ export default class Record extends React.Component {
     })
     .then((data) => {
       //Set the share link and remove the spinner from the page
-      var code = data.code
       this.props.addToState(data);
+      var code = this.props.questionCode || data.code
       this.setState({
         link: `${window.location.origin}/qa/${code}`,
         uploading: false

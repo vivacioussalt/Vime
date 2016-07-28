@@ -13,7 +13,7 @@ const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk, makeLogger(), routerMiddleware(browserHistory)),
-    window.devToolsExtension ? window.devToolsExtension() : undefined
+    window.devToolsExtension ? window.devToolsExtension() : f => f
     // for reduxDevTools 
     // https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
   )

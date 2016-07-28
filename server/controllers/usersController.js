@@ -10,7 +10,7 @@ function postUser(req, res) {
   })
   .catch(err => {
     if (err.message === existsMessage) {
-      res.json({message: existsMessage});
+      res.status(401).send(JSON.stringify(existsMessage));
     } else {
       res.sendStatus(500);
     }

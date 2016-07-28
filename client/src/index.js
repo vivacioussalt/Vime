@@ -12,7 +12,7 @@ import routes from './routes.js';
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(thunk, makeLogger(), routerMiddleware(browserHistory),
+    applyMiddleware(thunk, makeLogger(), routerMiddleware(browserHistory)),
     window.devToolsExtension ? window.devToolsExtension() : undefined
     // for reduxDevTools 
     // https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en

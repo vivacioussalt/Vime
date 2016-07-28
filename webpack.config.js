@@ -1,6 +1,7 @@
 module.exports = {
   entry: [
-    __dirname + '/client/src/index.js'
+    __dirname + '/client/src/index.js',
+    'whatwg-fetch'
   ],
   output: {
     path: __dirname + '/client',

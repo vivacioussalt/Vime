@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import user from './user';
 import questionsByCode from './questionsByCode';
-import answersOfQuestion from './answersOfQuestion';
+import answersOfQuestion from './answersOfQuestions';
 
 const rootReducer = combineReducers({
   questionsByCode,

@@ -3,7 +3,7 @@ export default function questionsByCode(state = {}, action){
     case 'ADD_QUESTION':
       return {
         ...state,
-        [action.questionCode] : {
+        [action.question.code]: {
           ...action.question
         }
       };

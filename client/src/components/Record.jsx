@@ -180,11 +180,11 @@ export default class Record extends React.Component {
       var code = data.code
       this.props.addToState(data);
       this.setState({
-        link: `${window.location.origin}/videos/${code}`,
+        link: `${window.location.origin}/qa/${code}`,
         uploading: false
       });
       // redirect to new link
-      browserHistory.push(`/videos/${code}`);
+      browserHistory.push(`/qa/${code}`);
     })
     .catch((err) => {
       throw err;

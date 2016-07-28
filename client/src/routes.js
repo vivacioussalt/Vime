@@ -11,8 +11,8 @@ export default (
   <Route path="/" component={App}>
     <Route path="login" component={Login} />
     <Route path="record/question" component={RecordQuestion} />
-    <Route path="qa/:id" component={Topic} />
-    <Route path="qa/:id/answer" component={RecordAnswer} />
+    <Route path="qa/:code" component={Topic} />
+    <Route path="qa/:code/answer" component={RecordAnswer} />
     <Route path="*" component={Error} />
   </Route>
 );

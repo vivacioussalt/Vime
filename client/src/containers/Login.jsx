@@ -34,7 +34,8 @@ class Login extends React.Component {
   // need to set current user in app, just getting user id back here right now
   handleLogin(e) {
     e.preventDefault();
-    this.props.login(this.state.username, this.state.password);
+    this.props.login(this.state.username, this.state.password)
+    .catch(err => Materialize.toast(err.message, 2000));
     this.setState({
       username: '',
       password: '',
@@ -45,28 +46,30 @@ class Login extends React.Component {
 
   render() {
     return ( 
-      <div className="row">
-        <h3>Login/Signup</h3>
-        <div className="row">
-          <form className="col s12" onSubmit={this.handleLogin}>
-            <div className="row">
-              <div className="input-field col s6">
-                <input className="validate" id="username" type="text" value={this.state.username} onChange={this.handleUsernameChange} />
-                <label htmlFor="username">Username</label>
-                <p style={{fontSize:"10px"}}>Can contain letters, numbers, and underscore</p>
+      <div className="row center">
+        <div className="container">
+          <h3>Login/Signup</h3>
+          <div className="row">
+            <form className="col s12" onSubmit={this.handleLogin}>
+              <div className="row">
+                <div className="input-field col offset-s3 s6">
+                  <input id="username" type="text" value={this.state.username} onChange={this.handleUsernameChange} />
+                  <label htmlFor="username">Username</label>
+                  <p style={{fontSize:"10px"}}>Can contain letters, numbers, and underscore</p>
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s6">
-                <input className="validate" id="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                <label htmlFor="password">Password</label>
-                <p style={{fontSize:"10px"}}>Must be between 8 and 15 characters, contain at least one lowercase, one uppercase, and one number</p>
+              <div className="row">
+                <div className="input-field col offset-s3 s6">
+                  <input id="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                  <label htmlFor="password">Password</label>
+                  <p style={{fontSize:"10px"}}>Must be between 8 and 15 characters, contain at least one lowercase, one uppercase, and one number</p>
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <button className="btn-large waves-effect waves-light blue darken-1" type="submit" disabled={this.state.usernameInvalid || this.state.passwordInvalid}>Login/SignUp</button>
-            </div>
-          </form>
+              <div className="row">
+                <button className="btn-large waves-effect waves-light blue darken-1" type="submit" disabled={this.state.usernameInvalid || this.state.passwordInvalid}>Login/SignUp</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     );

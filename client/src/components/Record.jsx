@@ -177,14 +177,14 @@ export default class Record extends React.Component {
     })
     .then((data) => {
       //Set the share link and remove the spinner from the page
-      var code = data.code
       this.props.addToState(data);
+      var code = this.props.questionCode || data.code
       this.setState({
-        link: `${window.location.origin}/videos/${code}`,
+        link: `${window.location.origin}/qa/${code}`,
         uploading: false
       });
       // redirect to new link
-      browserHistory.push(`/videos/${code}`);
+      browserHistory.push(`/qa/${code}`);
     })
     .catch((err) => {
       throw err;

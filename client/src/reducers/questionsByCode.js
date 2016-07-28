@@ -1,9 +1,9 @@
-export default function questionsById(state = {}, action){
+export default function questionsByCode(state = {}, action){
   switch (action.type){
     case 'ADD_QUESTION':
       return {
         ...state,
-        [action.question.id] : {
+        [action.question.code]: {
           ...action.question
         }
       };

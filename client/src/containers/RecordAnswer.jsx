@@ -9,12 +9,17 @@ import answerActions from './../actions/answerActions.jsx';
 class RecordAnswer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      code: this.props.params.code
+    }
   }
 
   render() {
-    <div>
-      <Record addToState={this.props.actions.addAnswer} apiUrl={'/api/answers'}/>
-    </div>
+    return (
+      <div>
+        <Record addToState={this.props.actions.addAnswer} apiUrl={'/api/answers'} questionCode={this.state.code} />
+      </div>
+    );
   }
 }
 

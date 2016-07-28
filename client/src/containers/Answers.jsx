@@ -1,6 +1,7 @@
 import React from 'react';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
 
+
 export default class Answers extends React.Component {
   constructor(props) {
     super(props)
@@ -8,7 +9,7 @@ export default class Answers extends React.Component {
 
   render() {
     <div> 
-      <AnswerVideoGrid videos={[]}/>
+      <AnswerVideoGrid videos={[]} />
     </div>
   }
 }

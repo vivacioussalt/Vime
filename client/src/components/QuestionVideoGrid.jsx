@@ -14,6 +14,6 @@ let QuestionVideoGrid = ({videos}) => {
   );
 };
 
-VideoGrid.propTypes = { videos: React.PropTypes.array.isRequired };
+QuestionVideoGrid.propTypes = { videos: React.PropTypes.array.isRequired };
 
 export default QuestionVideoGrid;

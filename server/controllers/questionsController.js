@@ -48,11 +48,11 @@ var createQuestion = function(req, res) {
 
 // update upvote or downvote for question
 const updateQuestionVotes = function(req, res) {
-  Question.findOne({ where: {id: req.body.id} })
-  .then(question => question.update({ [req.body.type]: parseInt(req.body.value) }))
-  .then(question => {
-    console.log(question);
-  })
+  const body = req.body;
+  Question.findOne({ where: {id: body.id} })
+  .then(question => question.update({ [body.type]: body.value }))
+  .then(question => res.json(question)) 
+  .catch(err => res.sendStatus(500))
 }
 
 module.exports = {

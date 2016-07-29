@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "seed": "node server/db/seed.js",
-    "build:dev": "webpack --config --watch -d ./webpack.config.js",
+    "build:dev": "webpack --config --watch -d",
     "build:prod": "webpack --config ./webpack.config.js",
     "postinstall": "cp ./node_modules/webrtc-adapter/out/adapter.js ./client/src && npm run build:prod"
   },

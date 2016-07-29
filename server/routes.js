@@ -14,6 +14,7 @@ router.get('/api/question', questionsController.getQuestion);
 
 router.get('/api/answers', answersController.getAnswersForQuestion);
 router.post('/api/answers', answersController.createAnswer);
+router.put('/api/answers', answersController.updateAnswerVotes);
 
 router.get('/api/presigned', generatePreSignedUrl);
 

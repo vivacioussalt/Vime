@@ -1,10 +1,12 @@
+import { Link } from 'react-router';
+
 let QuestionVideoGrid = ({videos}) => {
   return (
     <div className="row center">
-      {videos.map(video => 
-        <div key={video.id} className="col s4">
-          <Link to={`/qa/${video.code}`}>
-            <video controls src={video.url} width="100%"/>
+      {Object.keys(videos).map(videoCode => 
+        <div key={videos[videoCode].id} className="col s4">
+          <Link to={`/qa/${videoCode}`}>
+            <video controls src={videos[videoCode].url} width="100%"/>
           </Link>
         </div>
       )}
@@ -12,6 +14,6 @@ let QuestionVideoGrid = ({videos}) => {
   );
 };
 
-QuestionVideoGrid.propTypes = { videos: React.PropTypes.array.isRequired };
+QuestionVideoGrid.propTypes = { videos: React.PropTypes.object.isRequired };
 
 export default QuestionVideoGrid;

@@ -18,7 +18,7 @@ function postUser(req, res) {
           const id = user.dataValues.id;
           var getUserVideos = [
             Question.findAll({
-              attributes: ['id'],
+              attributes: ['code'],
               where: {userId: id}
             }),
             Answer.findAll({ where: {userId: id} })

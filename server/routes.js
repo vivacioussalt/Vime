@@ -4,6 +4,7 @@ const questionsController = require('./controllers/questionsController');
 const answersController = require('./controllers/answersController');
 const generatePreSignedUrl = require('./utility/generatePreSignedUrl');
 const usersController = require('./controllers/usersController');
+const stripeHandler = require('./utility/stripeHandler');
 const router = require('express').Router();
 
 router.get('/api/questions', questionsController.getAllQuestions);
@@ -17,6 +18,9 @@ router.post('/api/answers', answersController.createAnswer);
 router.get('/api/presigned', generatePreSignedUrl);
 
 router.post('/api/login', usersController.postUser);
+
+router.post('/api/stripe', stripeHandler.processDonation);
+router.get('/stripe/callback', stripeHandler.getStripeId);
 
 // Send homepage when users route to videos or record endpoint
 // React Router will handle showing the appropriate views

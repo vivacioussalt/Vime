@@ -1,5 +1,5 @@
 'use strict';
-import { Home } from './Home.jsx';
+import Home from '../containers/Home.jsx';
 import Navigation from './Navigation.jsx';
 
 export default class App extends React.Component {

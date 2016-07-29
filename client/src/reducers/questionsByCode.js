@@ -8,7 +8,11 @@ export default function questionsByCode(state = {}, action){
         }
       };
     case 'ADD_All_QUESTIONS':
-      return 
+      // var answa = action.questions.reduce((accum, question) => {
+      //   accum[question.code] = question;
+      //   return accum;
+      // }, {});
+      return
         action.questions.reduce((accum, question) => {
           accum[question.code] = question;
           return accum;

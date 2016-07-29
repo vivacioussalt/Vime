@@ -1,13 +1,15 @@
 import { Link } from 'react-router';
-import QuestionVideoGrid from './QuestionVideoGrid';
-import getQuestions from '../actions/questionAction';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import QuestionVideoGrid from '../components/QuestionVideoGrid';
+import { getQuestions } from '../actions/questionAction';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
-  willComponentMount(){
-    this.getQuestions();
+  componentWillMount(){
+    this.props.getQuestions();
   }
   render() {
     return (
@@ -48,7 +50,7 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <QuestionVideoGrid videos={this.props.questionsByCode || []}/>
+        <QuestionVideoGrid videos={this.props.questionsByCode || {}}/>
       </div>
     );
   }
@@ -62,7 +64,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch){
   return {
-    logout: bindActionCreators(getQuestions, dispatch)
+    getQuestions: bindActionCreators(getQuestions, dispatch)
   }
 }
 

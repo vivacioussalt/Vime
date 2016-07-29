@@ -25,7 +25,7 @@ function postUser(req, res) {
           ];
           Promise.all(getUserVideos)
           .then(userVideos => {
-            res.json(Object.assign({}, user.toJSON(), {question: userVideos[0].map(video => video.id), answers: userVideos[1]}))
+            res.json(Object.assign({}, user.toJSON(), {questions: userVideos[0].map(video => video.code), answers: userVideos[1]}))
           })
           .catch(err => {
             console.log('Error getting user videos information', err);

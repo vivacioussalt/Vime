@@ -19,21 +19,30 @@ class Navigation extends React.Component {
           <img className="logo" src="/assets/images/grandiose-potatoe.gif" height="100%"/>
           <a id="logo-container" href="/" className="brand-logo"> Vime </a>
           <a href="#" data-activates="mobile-demo" className="right button-collapse"><i className="material-icons">menu</i></a>
-            {this.props.location === '/login' ? 
-            '' 
+          {this.props.location === '/login' ? '' : this.props.user ? 
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <li><button onClick={this.handleLogout} className="btn-large waves-effect waves-light blue darken-1">Log Out</button></li>
+              <li><Link to="/profile" className="btn-large waves-effect waves-light blue darken-1"><i className="material-icons">perm_identity</i></Link></li> 
+            </ul>
             :
-            this.props.user ? 
-              <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li><button onClick={this.handleLogout}>Log Out</button></li>
-                <li><Link to="/profile" className="btn-large waves-effect waves-light blue darken-1">User Profile</Link></li> 
-              </ul>
-              :
-              <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li><Link to="/login" className="btn-large waves-effect waves-light blue darken-1">Login/Signup</Link></li>
-              </ul>
-            }
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <li><Link to="/login" className="btn-large waves-effect waves-light blue darken-1">Login/Signup</Link></li>
+            </ul>
+          }          
+
+          {/*SIDE NAV*/}
           <ul className="side-nav" id="mobile-demo">
+          {this.props.location === '/login' ? '' : this.props.user ? 
+            <li><Link to="/profile" className="btn-large waves-effect waves-light blue darken-1"><i className="material-icons">perm_identity</i></Link></li> 
+            :
             <li><Link to="/login" className="btn-large waves-effect waves-light blue darken-1">Login/Signup</Link></li>
+          }  
+          {this.props.location === '/login' ? 
+          '' : this.props.user ? 
+            <li><a href='javascript:;' onClick={this.handleLogout} className="btn-large waves-effect waves-light blue darken-1">Log Out</a></li>
+            :
+            ''
+          }            
           </ul>
         </div>
       </nav>

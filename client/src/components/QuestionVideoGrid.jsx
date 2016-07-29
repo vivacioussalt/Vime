@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 let QuestionVideoGrid = ({videos}) => {
   return (
     <div className="row center">

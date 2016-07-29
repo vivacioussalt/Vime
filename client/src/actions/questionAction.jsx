@@ -28,7 +28,6 @@ export function getQuestions() {
       .then(checkStatus)
       .then(toJSON)
       .then(questions => {
-        console.log('dispatching ROUND2 add all questions');
         dispatch(addAllQuestions(questions))
       })
       .catch(err => console.warn('Error in getQuestions', err))

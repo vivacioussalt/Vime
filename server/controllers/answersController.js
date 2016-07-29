@@ -7,7 +7,9 @@ var getAnswersForUser = function(req, res) {
   Answer.findAll({
     where: { userId: req.query.uid }
   }).then(function(answers) {
-    res.send(answers.dataValues);
+    res.send(answers.map(answer => {
+      return answer.dataValues
+    }));
   });
 };
 
@@ -16,7 +18,9 @@ var getAnswersForQuestion = function(req, res) {
   Answer.findAll({
     where: { questionId: req.query.questionId }
   }).then(function(answers) {
-    res.send(answers.dataValues);
+    res.send(answers.map(answer => {
+      return answer.dataValues
+    }));
   });
 };
 

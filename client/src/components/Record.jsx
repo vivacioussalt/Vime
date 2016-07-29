@@ -26,6 +26,10 @@ export default class Record extends React.Component {
     this.requestUserMedia(); 
   }
 
+  componentWillUnmount(){
+    this.closeStream();
+  }
+
   render() {
     return (
       <div className="col s8 offset-s2">
@@ -142,6 +146,13 @@ export default class Record extends React.Component {
     }
   }
 
+  closeStream() {
+    var audioTrack = this.state.stream.getTracks()[0];
+    var videoTrack = this.state.stream.getTracks()[1];
+    audioTrack.stop();
+    videoTrack.stop();
+  }
+
   stopRec() {
     console.log('inside stopRec');
 
@@ -150,10 +161,7 @@ export default class Record extends React.Component {
     this.state.mediaRecorder.stop();
 
     // Close streams to turn off webcam and mic
-    var audioTrack = this.state.stream.getTracks()[0];
-    var videoTrack = this.state.stream.getTracks()[1];
-    audioTrack.stop();
-    videoTrack.stop();
+    this.closeStream();
 
     let options = {
       type: 'video/webm'

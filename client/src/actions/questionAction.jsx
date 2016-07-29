@@ -1,14 +1,14 @@
 import { push } from 'react-router-redux';
 import { checkStatus, toJSON } from './fetchUtils';
 
-function add(question) {
+export function addQuestion(question) {
   return {
     type: 'ADD_QUESTION',
     question
   }  
 }
 
-export function addQuestion(question){
+export function postQuestion(question){
   return function(dispatch) {
     dispatch(add(question));
     dispatch(push(`/qa/${question.code}`));

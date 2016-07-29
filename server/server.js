@@ -5,7 +5,7 @@ var router = require('./routes');
 
 var app = express();
 
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../client/public'));
 app.port = process.env.PORT || 3000;
 
 app.listen(app.port, function() {

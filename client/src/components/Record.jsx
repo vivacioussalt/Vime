@@ -61,7 +61,7 @@ export default class Record extends React.Component {
 
     //Use native web api for Media Recorder (https://developers.google.com/web/updates/2016/01/mediarecorder)
     //to get the user audio and video
-    navigator.mediaDevices.getUserMedia({audio: true, video: true})
+    return navigator.mediaDevices.getUserMedia({audio: true, video: true})
     .then((stream) => {
       this.handleConnect(stream);
     })
@@ -96,30 +96,39 @@ export default class Record extends React.Component {
       this.stopRec();
     } else {
       this.startRec();
-      // this.startTimer();
     }
   }
 
   startRec() {
     console.log('inside startRec');
+    if (!this.state.stream) {
+      this.requestUserMedia()
+        .then(() => {
+        this.openMediaRecorder();
+      })
+    } else {
+      this.openMediaRecorder();
+    }
+    // Check browser and set the supported types to options variable
+  }
 
-    //Check browswer and set the supported types to options variable
+  openMediaRecorder() {
     let options = getSupportedTypes();
-    //Toggle button text and set isRec boolean to true and finishedRecordingb boolean to false
-    //Set blobs to an empty array 
-    //Instantiate MediaRecorder 
-    let mediaRecorder = new MediaRecorder(this.state.stream, options);
-    this.setState({
-      toggleRecText: 'Stop Recording',
-      isRec: true,
-      mediaRecorder: mediaRecorder,
-      blobs: [],
-      finishedRecording: false
-    });
+      //Toggle button text and set isRec boolean to true and finishedRecording boolean to false
+      //Set blobs to an empty array 
+      //Instantiate MediaRecorder 
+      let mediaRecorder = new MediaRecorder(this.state.stream, options);
+      this.setState({
+        toggleRecText: 'Stop Recording',
+        isRec: true,
+        mediaRecorder: mediaRecorder,
+        blobs: [],
+        finishedRecording: false
+      });
 
-    //When data becomes available, call function to handle the data
-    mediaRecorder.ondataavailable = this.handleDataAvailable.bind(this);
-    mediaRecorder.start(10); // collect 10ms of data 
+      //When data becomes available, call function to handle the data
+      mediaRecorder.ondataavailable = this.handleDataAvailable.bind(this);
+      mediaRecorder.start(10); // collect 10ms of data 
   }
 
   handleDataAvailable(event) {
@@ -136,8 +145,16 @@ export default class Record extends React.Component {
   stopRec() {
     console.log('inside stopRec');
 
+
     //Stop the mediaRecorder and toggle
     this.state.mediaRecorder.stop();
+
+    // Close streams to turn off webcam and mic
+    var audioTrack = this.state.stream.getTracks()[0];
+    var videoTrack = this.state.stream.getTracks()[1];
+    audioTrack.stop();
+    videoTrack.stop();
+
     let options = {
       type: 'video/webm'
     };
@@ -148,7 +165,8 @@ export default class Record extends React.Component {
       isRec: false,
       superBlob: superBlob,
       finishedRecording: true,
-      recVidUrl: window.URL.createObjectURL(superBlob)
+      recVidUrl: window.URL.createObjectURL(superBlob),
+      stream: null
     });
     document.getElementById('recorded').controls = true;
   }

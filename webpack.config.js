@@ -6,7 +6,7 @@ module.exports = {
     'whatwg-fetch'
   ],
   output: {
-    path: __dirname + '/client',
+    path: __dirname + '/client/public',
     filename: 'bundle.js'
   },
   plugins: [

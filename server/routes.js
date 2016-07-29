@@ -20,11 +20,11 @@ router.post('/api/login', usersController.postUser);
 
 // Send homepage when users route to videos or record endpoint
 // React Router will handle showing the appropriate views
-//router.get('/QA/*', (req, res) => { res.sendFile(path.resolve(__dirname + '/../../client/index.html')); });
-//router.get('/record', (req, res) => { res.sendFile(path.resolve(__dirname + '/../../client/index.html')); });
+//router.get('/QA/*', (req, res) => { res.sendFile(path.resolve(__dirname + '/../../client/public/index.html')); });
+//router.get('/record', (req, res) => { res.sendFile(path.resolve(__dirname + '/../../client/public/index.html')); });
 
 router.get('*', (req, res)=>{
-  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+  res.sendFile(path.resolve(__dirname + '/../client/public/index.html'));
 });
 //TODO
 //Handle unknown routes;

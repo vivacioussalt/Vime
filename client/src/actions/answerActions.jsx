@@ -1,4 +1,6 @@
 import { push } from 'react-router-redux';
+import { checkStatus, toJSON } from './fetchUtils';
+
 
 function add({questionCode, answer}) {
   return {
@@ -16,26 +18,26 @@ function addAnswer({questionCode, answer}) {
   }
 }
 
-function addAllAnswers(answers) {
+function addAllAnswers(code, answers) {
   return {
     type: 'ADD_ALL_ANSWERS',
+    questionCode: code,
     answers
   }
 }
 
-function getAnswers() {
+function getAnswersForQuestion(id, code) {
   return function(dispatch) {
-    return fetch('http://localhost/api/answers')
-      .then(res => {
-        if (!res.ok) {
-          console.warn('error in getAnswers fetch', res.statusText);
-        }
-        var answers = res.json()
-        return answers;
-      })
-      .then(answers => dispatch(addAllAnswers(answers)))
-      .catch(err => console.warn('error in getAnswers', err))
+    return fetch(`/api/answers?questionId=${id}`)
+    .then(checkStatus)
+    .then(toJSON)
+    .then(answers => {
+      console.log(answers);
+      dispatch(addAllAnswers(code, answers));
+      dispatch(push(`/qa/${code}`));
+    })
+    .catch(err => console.warn('error in getAnswers', err))
   }
 }
 
-export { addAnswer, addAllAnswers, getAnswers };
+export { addAnswer, addAllAnswers, getAnswersForQuestion };

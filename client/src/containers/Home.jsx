@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import QuestionVideoGrid from '../components/QuestionVideoGrid';
 import { getQuestions } from '../actions/questionAction';
+import { getAnswersForQuestion } from '../actions/answerActions';
 
 class Home extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <QuestionVideoGrid videos={this.props.questionsByCode || {}}/>
+        <QuestionVideoGrid videos={this.props.questionsByCode || {}} fetchAnswers={this.props.getAnswersForQuestion} />
       </div>
     );
   }
@@ -64,7 +65,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch){
   return {
-    getQuestions: bindActionCreators(getQuestions, dispatch)
+    getQuestions: bindActionCreators(getQuestions, dispatch),
+    getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch)
   }
 }
 

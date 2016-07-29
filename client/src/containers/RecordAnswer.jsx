@@ -3,7 +3,7 @@ import Record from './../components/Record.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import answerActions from './../actions/answerActions.jsx';
+import { addAnswer } from './../actions/answerActions.jsx';
 
 
 class RecordAnswer extends React.Component {
@@ -25,10 +25,8 @@ class RecordAnswer extends React.Component {
         questionId: this.state.questionId       
       }
     }
-    // call action creator
-    this.props.actions.addAnswer(action);
-    // redirect to new topic page
-    browserHistory.push(`/qa/${data.code}`);
+    // call action creator which will redirect to topic page
+    this.props.addAnswer(action);
   }
 
 
@@ -52,7 +50,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(answerActions, dispatch)
+    addAnswer: bindActionCreators(addAnswer, dispatch)
   }
 }
 

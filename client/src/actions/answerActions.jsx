@@ -1,8 +1,18 @@
-function addAnswer({questionCode, answer}) {
+import { push } from 'react-router-redux';
+
+function add({questionCode, answer}) {
   return {
     type: 'ADD_ANSWER',
     questionCode,
     answer
+  }
+}
+
+
+function addAnswer({questionCode, answer}) {
+  return function(dispatch) {
+    dispatch(add({questionCode, answer}));
+    dispatch(push(`/qa/${questionCode}`));
   }
 }
 
@@ -28,10 +38,4 @@ function getAnswers() {
   }
 }
 
-const answerActions = {
-  addAnswer,
-  addAllAnswers,
-  getAnswers
-}
-
-export default answerActions;
+export { addAnswer, addAllAnswers, getAnswers };

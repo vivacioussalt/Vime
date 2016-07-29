@@ -26,10 +26,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
-  },
-  devServer: {
-    contentBase: __dirname + '/client',
-    port: 3000
   }
 };
 

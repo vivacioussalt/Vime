@@ -1,6 +1,5 @@
 'use strict';
 import { getPreSignedUrl, getSupportedTypes, putObjectToS3, postVideoUrl } from '../recordUtil.js';
-import { browserHistory } from 'react-router';
 
 export default class Record extends React.Component {
 
@@ -172,18 +171,17 @@ export default class Record extends React.Component {
     })
     .then((videoData) => {
       //Take the video's publicUrl and post to the server
-      return postVideoUrl(videoData.publicUrl, this.props.apiUrl);
+      return postVideoUrl(videoData.publicUrl, this.props.apiUrl, this.props.userId, this.props.questionId);
     })
     .then((data) => {
-      //Set the share link and remove the spinner from the page
+      // call the container's function which dispatches action
       this.props.addToState(data);
-      var code = this.props.questionCode || data.code
-      this.setState({
-        link: `${window.location.origin}/qa/${code}`,
-        uploading: false
-      });
-      // redirect to new link
-      browserHistory.push(`/qa/${code}`);
+      //Set the share link and remove the spinner from the page
+      // NEED TO FIX: 
+      // ERROR IS: CAN'T SET STATE ON UNMOUNTED COMPONENT
+      // this.setState({
+      //   uploading: false
+      // });
     })
     .catch((err) => {
       throw err;

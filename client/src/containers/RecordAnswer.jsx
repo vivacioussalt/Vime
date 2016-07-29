@@ -2,7 +2,7 @@ import Record from './../components/Record.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import { addAnswer } from './../actions/answerActions.jsx';
+import { postAnswer } from './../actions/answerActions.jsx';
 
 
 class RecordAnswer extends React.Component {
@@ -25,7 +25,7 @@ class RecordAnswer extends React.Component {
       }
     }
     // call action creator which will redirect to topic page
-    this.props.addAnswer(action);
+    this.props.postAnswer(action);
   }
 
 
@@ -49,7 +49,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch){
   return {
-    addAnswer: bindActionCreators(addAnswer, dispatch)
+    postAnswer: bindActionCreators(postAnswer, dispatch)
   }
 }
 

@@ -10,7 +10,7 @@ export function addQuestion(question) {
 
 export function postQuestion(question){
   return function(dispatch) {
-    dispatch(add(question));
+    dispatch(addQuestion(question));
     dispatch(push(`/qa/${question.code}`));
   }
 }

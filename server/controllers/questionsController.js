@@ -49,15 +49,16 @@ const getQuestion = function(req, res) {
 //Create Question video with aws public url and uniq code
 //Send code to client on success
 const createQuestion = function(req, res) {
+  let videoCode = shortid.generate();
   console.log('');
-  req.app.socket.broadcast.emit('makeQuestion', 'Someone made a question!');
+  req.app.socket.broadcast.emit('makeQuestion', videoCode );
   console.log('');
   console.log('Creating QUESTION video with url:', req.body.publicUrl);
   console.log('question tags', req.body.tags);
   Question.create({
     url: req.body.publicUrl,
     userId: req.body.userId,
-    code: shortid.generate()
+    code: videoCode
   })
   .then(function(question) {
     var tags = req.body.tags;

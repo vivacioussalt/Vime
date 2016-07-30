@@ -47,7 +47,6 @@ var PaymentForm = React.createClass({
         self.setState({ paymentComplete: true, submitDisabled: false, token: response.id });
 
         var obj = {};
-        debugger;
         obj.stripeToken = response.id;
         obj.userId = self.props.userId;
         obj.videoId = videoId;
@@ -58,7 +57,6 @@ var PaymentForm = React.createClass({
           type: 'POST',
           data: obj,
           success: function(data) {
-            console.log(data);
           }.bind(this),
           error: function(xhr, status, err) {
             console.error(this.props.url, status, err.toString());
@@ -66,7 +64,6 @@ var PaymentForm = React.createClass({
         });
 
         console.log('make request to server');
-        console.log(response);
       }
     });
   },

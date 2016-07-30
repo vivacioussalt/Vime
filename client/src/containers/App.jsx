@@ -27,6 +27,7 @@ class App extends React.Component {
     });
     socket.on('makeQuestion', function(msg){
       alert(msg);
+      this.props.getQuestions();
     });
   }
   componentWillUnmount(){

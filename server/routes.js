@@ -17,6 +17,9 @@ router.get('/answers', answersController.getAnswersForQuestion);
 router.post('/answers', answersController.createAnswer);
 router.put('/answers', answersController.updateAnswerVotes);
 
+router.post('/api/stripe', stripeHandler.processDonation);
+router.post('/api/stripe/id', stripeHandler.getStripeId);
+
 router.get('/presigned', generatePreSignedUrl);
 
 router.post('/login', usersController.postUser);

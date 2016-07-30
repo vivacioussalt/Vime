@@ -4,13 +4,15 @@ var bodyParser = require('body-parser');
 var router = require('./routes');
 
 var app = express();
-
-app.use(express.static(__dirname + '/../client/public'));
 app.port = process.env.PORT || 3000;
-
-app.listen(app.port, function() {
+var server = app.listen(app.port, function() {
   console.log('we are listening!');
 });
+
+//app.io = require('socket.io')(server);
+var io = require('socket.io')(server);
+
+app.use(express.static(__dirname + '/../client/public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,5 +21,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //https://expressjs.com/en/guide/routing.html
 app.use('/', router);
 
-app.use(bodyParser.json()); 
 
+io.on('connection', function(socket){
+  console.log('\nUSER CONNECTED\n');
+  app.socket=socket;
+  socket.on('disconnect', function(){
+    console.log('\nUSER DISCONNECTED\n');
+  })
+  socket.on('some message', function(msg){
+    console.log('A client sent you a msg:', msg);
+    console.log('Let\'s tell everyone else hi');
+    socket.broadcast.emit('someone else','hi');
+  });
+});

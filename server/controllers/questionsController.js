@@ -34,6 +34,9 @@ var getQuestion = function(req, res) {
 //Create Question video with aws public url and uniq code
 //Send code to client on success
 var createQuestion = function(req, res) {
+  console.log('');
+  req.app.socket.broadcast.emit('makeQuestion', 'Someone made a question!');
+  console.log('');
   console.log('Creating QUESTION video with url:', req.body.publicUrl);
   Question.create({
     url: req.body.publicUrl,

@@ -7,6 +7,12 @@ import { getQuestions } from '../actions/questionAction';
 import Home from './Home.jsx';
 import Navigation from './Navigation.jsx';
 
+/////////////////////////////////////////////////////////////
+import io from 'socket.io-client';
+//TEMPORARY: putting socket initialization here
+const socket = io();
+/////////////////////////////////////////////////////////////
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -14,6 +20,17 @@ class App extends React.Component {
   componentWillMount(){
     //Load up questions when user starts app
     this.props.getQuestions();
+    console.log('You said hello to the server');
+    socket.emit('some message','hello');
+    socket.on('someone else', function(msg){
+      console.log('You got a message from someone else:', msg);
+    });
+    socket.on('makeQuestion', function(msg){
+      alert(msg);
+    });
+  }
+  componentWillUnmount(){
+    socket.close();
   }
 	render() {
     return (

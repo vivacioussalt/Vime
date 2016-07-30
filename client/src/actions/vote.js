@@ -19,7 +19,7 @@ function vote(type, videoType, video) {
     .then(checkStatus)
     .then(toJSON)
     .then(video => {
-      if (videoType === 'question') {
+      if (videoType === 'questions') {
         return dispatch(addQuestion(video));
       } else {
         return dispatch(addAnswer(video));

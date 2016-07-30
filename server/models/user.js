@@ -6,7 +6,8 @@ const db = require('../db/db.js');
 
 const User = db.define('user', {
   username: Sequelize.STRING,
-  password: Sequelize.STRING
+  password: Sequelize.STRING,
+  stripeId: Sequelize.STRING
 }, {
   instanceMethods: {
     comparePassword: function(password) {

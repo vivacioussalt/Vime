@@ -1,5 +1,6 @@
 import { checkStatus, toJSON } from './fetchUtils';
 import { addQuestion } from './questionAction';
+import { addAnswer } from './answerAction';
 
 function vote(type, videoType, video) {
   const value = type === 'upvote' ? video.upvote + 1 : video.downvote + 1;
@@ -15,7 +16,13 @@ function vote(type, videoType, video) {
     })
     .then(checkStatus)
     .then(toJSON)
-    .then(question => dispatch(addQuestion(question)))
+    .then(video => {
+      if (videoType === 'question') {
+        return dispatch(addQuestion(video));
+      } else {
+        return dispatch(addAnswer(video));
+      }
+    })
     .catch(err => { console.log(err); })
   }
 }

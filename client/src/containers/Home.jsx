@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import QuestionVideoGrid from '../components/QuestionVideoGrid';
 import { getAnswersForQuestion } from '../actions/answerActions';
+import setFilter from '../actions/setFilter';
 import { values, orderBy } from 'lodash';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
+  
   render() {
     return (
       <div className="row">
@@ -48,14 +50,23 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <
-        <QuestionVideoGrid videos={this.props.questions || []} fetchAnswers={this.props.getAnswersForQuestion} />
+        <div className="section">
+          <h3>Questions</h3>
+          <p className="col s1">Filter</p>
+          <p className="col s1 offset-s1 center-align btn-medium waves-effect waves-light blue darken-1" onClick={this.props.setFilter.bind(null, 'NEWEST')}>Newest</p>
+          <p className="col s1 offset-s1 center-align btn-medium waves-effect waves-light blue darken-1" onClick={this.props.setFilter.bind(null, 'OLDEST')}>Oldest</p>
+          <p className="col s2 offset-s1 center-align btn-medium waves-effect waves-light blue darken-1" onClick={this.props.setFilter.bind(null, 'HIGHEST_RATED')}>Highest Rated</p>
+          <p className="col s2 offset-s1 center-align btn-medium waves-effect waves-light blue darken-1" onClick={this.props.setFilter.bind(null, 'POPULAR')}>Popular</p>
+          <div className="col s12">
+            <QuestionVideoGrid videos={this.props.questions || []} fetchAnswers={this.props.getAnswersForQuestion} />
+          </div>
+        </div>
       </div>
     );
   }
 };
 
-function orderQuestions(questions, order='POPULAR') {
+function orderQuestions(questions, order) {
   switch(order) {
     case 'NEWEST':
       return orderBy(questions, ['createdAt'], ['desc']);
@@ -73,12 +84,13 @@ function orderQuestions(questions, order='POPULAR') {
 function mapStateToProps(state) {
   return {
     questionsByCode: state.questionsByCode,
-    questions: orderQuestions(values(state.questionsByCode))
+    questions: orderQuestions(values(state.questionsByCode), state.filter)
   }
 }
 function mapDispatchToProps(dispatch){
   return {
-    getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch)
+    getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch),
+    setFilter: bindActionCreators(setFilter, dispatch)
   }
 }
 

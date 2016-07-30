@@ -50,9 +50,16 @@ const createQuestion = function(req, res) {
     if (tags.length) {
       tags.forEach((tag) => {
         tagsController.createTag(tag)
-        .then((tagData) => {
-          question.addTag(tagData.dataValues.id);
+        .spread((tagEntry, created) => {
+            question.addTag(tagEntry.dataValues.id);
+          // console.log('what is in this tagEntry?', tagEntry.dataValues);
+          // if (created) {
+            // console.log('already created this tag, what is in it?', tagEntry.dataValues);
+          // }
         })
+          // if (created) {
+          // } else {
+            
       })
     }
 

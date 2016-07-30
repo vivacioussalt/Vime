@@ -4,15 +4,21 @@ var bodyParser = require('body-parser');
 var router = require('./routes');
 
 var app = express();
-
-app.use(express.static(__dirname + '/../client/public'));
 app.port = process.env.PORT || 3000;
-
 var server = app.listen(app.port, function() {
   console.log('we are listening!');
 });
-
 var io = require('socket.io')(server);
+
+app.use(express.static(__dirname + '/../client/public'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//middleware for routes
+//https://expressjs.com/en/guide/routing.html
+app.use('/', router);
+
 
 io.on('connection', function(socket){
   console.log('USER CONNECTED');
@@ -23,14 +29,3 @@ io.on('connection', function(socket){
     socket.broadcast.emit('someone else','hi');
   });
 });
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-//middleware for routes
-//https://expressjs.com/en/guide/routing.html
-app.use('/', router);
-
-app.use(bodyParser.json()); 
-

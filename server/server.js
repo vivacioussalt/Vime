@@ -20,8 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', router);
 
 // route for stripe processing
-app.post('/stripe', stripeHandler.processDonation);
-app.get('/stripe/callback', stripeHandler.getStripeId);
+app.post('/api/stripe', stripeHandler.processDonation);
+app.post('/api/stripe/id', stripeHandler.getStripeId);
 
 // serve index.html for rest
 app.get('*', (req, res)=>{

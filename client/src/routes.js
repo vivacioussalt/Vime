@@ -6,6 +6,7 @@ import RecordQuestion from './containers/RecordQuestion.jsx';
 import RecordAnswer from './containers/RecordAnswer.jsx';
 import Topic from './containers/Topic.jsx';
 import User from './containers/User';
+import PaymentForm from './components/PaymentForm.jsx';
 import Error from './components/Error.jsx';
 
 export default (
@@ -16,6 +17,7 @@ export default (
     <Route path="qa/:code" component={Topic} />
     <Route path="qa/:code/answer" component={RecordAnswer} />
     <Route path="profile" component={User} />
+    <Route path="donate" component={PaymentForm} />
     <Route path="*" component={Error} />
   </Route>
 );

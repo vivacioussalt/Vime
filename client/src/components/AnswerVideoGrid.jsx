@@ -1,4 +1,5 @@
 import Video from './Video';
+import StripeButton from './StripeButton';
 
 const AnswerVideoGrid = ({ videos, upvote, downvote, setFilter }) => {
   return (
@@ -12,6 +13,7 @@ const AnswerVideoGrid = ({ videos, upvote, downvote, setFilter }) => {
         {videos.map(video => 
           <div key={video.id} className="col s4">
             <Video video={video} upvote={upvote} downvote={downvote} />
+            <StripeButton videoId={video.id} />
           </div>
         )}
       </div>

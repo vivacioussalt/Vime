@@ -6,7 +6,8 @@ import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
 
 export default class Topic extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    console.log('topic', props);
   }
 
   render() {
@@ -49,7 +50,7 @@ function mapStateToProps(state, ownProps) {
   return {
     code: code,
     question: state.questionsByCode[code],
-    answers: state.answersOfQuestions[code],
+    answers: state.answersOfQuestions[code] || [],
     user: state.user
   };
 }

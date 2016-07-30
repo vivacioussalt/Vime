@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
-import { getAnswersForQuestion } from '../actions/answerActions';
+import { goToTopic } from '../actions/answerActions';
+import setFilter from '../actions/setFilter';
 
 function mapCodeToQuestions(codes, lookup) {
   return codes.map(code => lookup[code]);
@@ -16,7 +17,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchAnswers: getAnswersForQuestion
+    goToTopic: goToTopic,
+    setFilter: setFilter 
   }
 }
 

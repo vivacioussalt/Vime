@@ -36,6 +36,8 @@
     "request": "^2.74.0",
     "sequelize": "^3.23.4",
     "shortid": "^2.2.6",
+    "socket.io": "^1.4.8",
+    "socket.io-client": "^1.4.8",
     "stripe": "^4.9.0",
     "webrtc-adapter": "^1.4.0",
     "whatwg-fetch": "^1.0.0"

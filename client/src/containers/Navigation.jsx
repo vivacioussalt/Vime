@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import logout from '../actions/logout';
 
+/////////////////////////////////////////////////////////////
+import io from 'socket.io-client';
+//TEMPORARY: putting socket initialization here
+const socket = io();
+/////////////////////////////////////////////////////////////
+
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +17,15 @@ class Navigation extends React.Component {
   handleLogout(){
     this.props.logout();
     this.context.router.push('/');
+  }
+  componentDidMount(){
+    socket.emit('some message','hello');
+    socket.on('someone else', function(msg){
+      console.log('We got a message from someone else', msg);
+    });
+  }
+  componentWillUnmount(){
+    socket.close();
   }
   render() {
     return (

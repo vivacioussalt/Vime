@@ -3,7 +3,7 @@ function answer(state = [], action) {
   if (index === -1) {
     return state.concat([action.answer]);
   } else {
-    return [...state.slice(0, index), ...state.slice(index + 1), action.answer];
+    return [...state.slice(0, index), action.answer, ...state.slice(index + 1)];
   } 
 }
 

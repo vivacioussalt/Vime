@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
+import { bindActionCreators } from 'redux';
 import { goToTopic } from '../actions/answerActions';
 import setFilter from '../actions/setFilter';
 
@@ -17,8 +18,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    goToTopic: goToTopic,
-    setFilter: setFilter 
+    goToTopic: bindActionCreators(goToTopic, dispatch),
+    setFilter: bindActionCreators(setFilter, dispatch) 
   }
 }
 

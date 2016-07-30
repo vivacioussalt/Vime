@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import QuestionVideoGrid from '../components/QuestionVideoGrid';
-import { getAnswersForQuestion } from '../actions/answerActions';
+import { goToTopic } from '../actions/answerActions';
 import setFilter from '../actions/setFilter';
 import { values, orderBy } from 'lodash';
 
@@ -52,7 +52,7 @@ class Home extends React.Component {
         </div>
         <div className="section">
           <h3>Questions</h3>
-          <QuestionVideoGrid videos={this.props.questions} fetchAnswers={this.props.getAnswersForQuestion} setFilter={this.props.setFilter} />
+          <QuestionVideoGrid videos={this.props.questions} goToTopic={this.props.goToTopic} setFilter={this.props.setFilter} />
         </div>
       </div>
     );
@@ -82,7 +82,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch){
   return {
-    getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch),
+    goToTopic: bindActionCreators(goToTopic, dispatch),
     setFilter: bindActionCreators(setFilter, dispatch)
   }
 }

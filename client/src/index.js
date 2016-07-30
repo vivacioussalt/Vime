@@ -7,6 +7,8 @@ import thunk from 'redux-thunk';
 import makeLogger from 'redux-logger';
 import rootReducer from './reducers/rootReducer';
 import routes from './routes.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 const store = createStore(
   rootReducer,
@@ -22,7 +24,9 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <MuiThemeProvider>
+      <Router history={history} routes={routes} />
+    </MuiThemeProvider>
   </Provider>
   , document.getElementById('app')
 );

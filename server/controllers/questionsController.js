@@ -61,7 +61,7 @@ const createQuestion = function(req, res) {
     code: videoCode
   })
   .then(function(question) {
-    var tags = req.body.tags;
+    var tags = req.body.tags || [];
     var postTags = tags.map(tag => {
       return tagsController.createTag(tag)
         .spread((tagEntry, created) => {

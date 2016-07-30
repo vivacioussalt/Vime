@@ -7,6 +7,7 @@ import Chip from 'material-ui/Chip';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { union } from 'lodash';
+import { postVideoUrl } from '../recordUtil.js';
 injectTapEventPlugin();
 
 class RecordQuestion extends React.Component {
@@ -33,7 +34,7 @@ class RecordQuestion extends React.Component {
     return (
       <div>
         <h1>What's your question?</h1>
-        <Record addToState={this.addToState} apiUrl={'/api/questions'} userId={this.props.userId} addTags={this.addTags}/>
+        <Record addToState={this.addToState} addTags={this.addTags}/>
         <div>
         {this.state.tagData.length > 0 ? <h4>I got some tags for ya:</h4> : null}
           <div style={this.styles.wrapper}>
@@ -60,15 +61,18 @@ class RecordQuestion extends React.Component {
   }
 
 
-  addToState(data) {
+  addToState(videoData) {
     var tags = this.state.tagData.map(tag => tag.label); 
-    var question = {
-      ...data,
-      userId: this.props.userId,
-      tags: tags
-    }
+    var apiUrl = '/api/questions';
+    postVideoUrl(videoData.publicUrl, apiUrl, this.props.userId, null, tags)
+    .then((data) => {
+      var question = {
+        ...data,
+        userId: this.props.userId
+      };
+      this.props.postQuestion(question);
+    }) 
     // call action creator which will redirect to topic page
-    this.props.postQuestion(question);
   }
 
   addTags(data) {

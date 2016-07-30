@@ -262,19 +262,10 @@ export default class Record extends React.Component {
       return putObjectToS3(data);
     })
     .then((videoData) => {
+      this.props.addToState(videoData);
       //Take the video's publicUrl and post to the server
-      return postVideoUrl(videoData.publicUrl, this.props.apiUrl, this.props.userId, this.props.questionId);
-    })
-    .then((data) => {
-      // call the container's function which dispatches action
-      this.props.addToState(data);
-      //Set the share link and remove the spinner from the page
-     
-      // NEED TO FIX TURNING OFF UPLOADING BAR: 
-      // ERROR IS: CAN'T SET STATE ON UNMOUNTED COMPONENT
-      // this.setState({
-      //   uploading: false
-      // });
+      // MOVED THIS FUNCTION TO ITS PARENT CONTAINER RECORD QUESTION/RECORD ANSWER
+      // return postVideoUrl(videoData.publicUrl, this.props.apiUrl, this.props.userId, this.props.questionId);
     })
     .catch((err) => {
       throw err;

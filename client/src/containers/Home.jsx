@@ -51,7 +51,7 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <QuestionVideoGrid videos={this.props.questionsByCode || {}} fetchAnswers={this.props.getAnswersForQuestion} />
+        <QuestionVideoGrid videos={this.props.questions || []} fetchAnswers={this.props.getAnswersForQuestion} />
       </div>
     );
   }
@@ -60,7 +60,8 @@ class Home extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    questionsByCode: state.questionsByCode
+    questionsByCode: state.questionsByCode,
+    questions: [] 
   }
 }
 function mapDispatchToProps(dispatch){

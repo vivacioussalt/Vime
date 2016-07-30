@@ -1,6 +1,6 @@
 import { checkStatus, toJSON } from './fetchUtils';
 import { addQuestion } from './questionAction';
-import { addAnswer } from './answerAction';
+import { addAnswer } from './answerActions';
 
 function vote(type, videoType, video) {
   const value = type === 'upvote' ? video.upvote + 1 : video.downvote + 1;
@@ -12,6 +12,8 @@ function vote(type, videoType, video) {
         id: video.id,
         type,
         value: value,
+        // needed for answer videos only
+        questionId: video.questionId
       })
     })
     .then(checkStatus)
@@ -20,8 +22,7 @@ function vote(type, videoType, video) {
       if (videoType === 'question') {
         return dispatch(addQuestion(video));
       } else {
-        const { questionCode, video } = video;
-        return dispatch(addAnswer(questionCode, video));
+        return dispatch(addAnswer(video));
       }
     })
     .catch(err => { console.log(err); })

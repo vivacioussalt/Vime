@@ -1,7 +1,11 @@
-const Question = require('../models/models.js').Question;
+const models = require('../models/models.js');
+const Question = models.Question;
+const Tag = models.Tag;
+
 const shortid = require('shortid');
 const tagsController = require('./tagsController.js');
 const sequelize = require('../db/db.js');
+const Promise = require('bluebird');
 
 //return all questions from the database
 const getAllQuestions = function(req, res) {
@@ -57,24 +61,30 @@ const createQuestion = function(req, res) {
   })
   .then(function(question) {
     var tags = req.body.tags;
-    if (tags.length) {
-      tags.forEach((tag) => {
-        tagsController.createTag(tag)
+    var postTags = tags.map(tag => {
+      return tagsController.createTag(tag)
         .spread((tagEntry, created) => {
-            question.addTag(tagEntry.dataValues.id);
-          // console.log('what is in this tagEntry?', tagEntry.dataValues);
-          // if (created) {
-            // console.log('already created this tag, what is in it?', tagEntry.dataValues);
-          // }
+            return question.addTag(tagEntry.dataValues.id);
         })
-          // if (created) {
-          // } else {
-            
+    });
+    Promise.all(postTags)
+    .then(() => {
+      var queryString = `SELECT questions."id", questions."code",
+                          questions."upvote", questions."downvote",
+                          questions."createdAt", questions."url",
+                          array_agg(tags."tag") as tags
+                        FROM "questions" questions
+                        JOIN "questiontags" qt
+                        ON questions."id" = qt."questionId"
+                        JOIN "tags" tags ON qt."tagId" = tags."id"
+                        WHERE questions."id" = ${question.dataValues.id}
+                        GROUP BY questions."id"`;
+      sequelize.query(queryString)
+      .spread((questions, metadata) => {
+        res.send(questions[0]);
       })
-    }
-
-    console.log('created QUESTION video:', question);
-    res.send(question.dataValues);
+      .catch(err => res.sendStatus(500));
+    });
   });
 };
 

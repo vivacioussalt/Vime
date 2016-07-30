@@ -1,5 +1,5 @@
 'use strict';
-import Home from '../containers/Home.jsx';
+import Home from './Home.jsx';
 import Navigation from './Navigation.jsx';
 
 export default class App extends React.Component {
@@ -13,7 +13,7 @@ export default class App extends React.Component {
       <div>
         <Navigation />
         <div className="container">
-          {this.props.children || <Home />}
+          {this.props.children}
         </div>
       </div>
     )

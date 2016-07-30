@@ -2,15 +2,11 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import QuestionVideoGrid from '../components/QuestionVideoGrid';
-import { getQuestions } from '../actions/questionAction';
 import { getAnswersForQuestion } from '../actions/answerActions';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-  }
-  componentWillMount(){
-    this.props.getQuestions();
   }
   render() {
     return (
@@ -66,12 +62,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch){
   return {
-    getQuestions: bindActionCreators(getQuestions, dispatch),
     getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch)
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-
-
-

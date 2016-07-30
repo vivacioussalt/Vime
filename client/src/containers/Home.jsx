@@ -78,7 +78,7 @@ function orderQuestions(questions, order) {
       return orderBy(questions, question => question.upvote + question.downvote, ['desc']);
     // filter by tag
     default:
-      return filter(questions, question => includes(question.tag, order)); 
+      return filter(questions, question => includes(question.tags, order)); 
   }
 }
 

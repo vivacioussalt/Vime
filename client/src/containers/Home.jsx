@@ -4,11 +4,18 @@ import { bindActionCreators } from 'redux';
 import QuestionVideoGrid from '../components/QuestionVideoGrid';
 import { goToTopic } from '../actions/answerActions';
 import setFilter from '../actions/setFilter';
-import { values, orderBy } from 'lodash';
+import { values, orderBy, filter, includes } from 'lodash';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  submitHandler(e) {
+    e.preventDefault();
+    var $target = $(e.target).find('input');
+    this.props.setFilter($target.val()); 
   }
   
   render() {
@@ -52,7 +59,7 @@ class Home extends React.Component {
         </div>
         <div className="section">
           <h3>Questions</h3>
-          <QuestionVideoGrid videos={this.props.questions} goToTopic={this.props.goToTopic} setFilter={this.props.setFilter} />
+          <QuestionVideoGrid videos={this.props.questions} goToTopic={this.props.goToTopic} setFilter={this.props.setFilter} submitHandler={this.submitHandler}/>
         </div>
       </div>
     );
@@ -69,8 +76,9 @@ function orderQuestions(questions, order) {
       return orderBy(questions, question => (question.upvote - question.downvote) * (question.upvote + question.downvote), ['desc']); 
     case 'POPULAR':
       return orderBy(questions, question => question.upvote + question.downvote, ['desc']);
+    // filter by tag
     default:
-      return questions;
+      return filter(questions, question => includes(question.tags, order)); 
   }
 }
 

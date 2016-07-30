@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
+import { getAnswersForQuestion } from '../actions/answerActions';
 
 function mapCodeToQuestions(codes, lookup) {
   return codes.map(code => lookup[code]);
@@ -13,6 +14,12 @@ function mapStateToProps(state) {
   }
 }
 
-const User = connect(mapStateToProps, null)(Profile);
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchAnswers: getAnswersForQuestion
+  }
+}
+
+const User = connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 export default User;

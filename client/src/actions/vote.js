@@ -20,7 +20,8 @@ function vote(type, videoType, video) {
       if (videoType === 'question') {
         return dispatch(addQuestion(video));
       } else {
-        return dispatch(addAnswer(video));
+        const { questionCode, video } = video;
+        return dispatch(addAnswer(questionCode, video));
       }
     })
     .catch(err => { console.log(err); })

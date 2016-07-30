@@ -38,12 +38,19 @@ const createQuestion = function(req, res) {
   req.app.socket.broadcast.emit('makeQuestion', 'Someone made a question!');
   console.log('');
   console.log('Creating QUESTION video with url:', req.body.publicUrl);
+  console.log('question tags', req.body.tags);
   Question.create({
     url: req.body.publicUrl,
     userId: req.body.userId,
     code: shortid.generate()
   })
   .then(function(question) {
+    var tags = req.body.tags;
+    if (tags.length) {
+      tags.forEach((tag) => question.addTag(tag));
+    // question.addTag
+    }
+
     console.log('created QUESTION video:', question);
     res.send(question.dataValues);
   });

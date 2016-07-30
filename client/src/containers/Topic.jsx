@@ -2,7 +2,9 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import vote from '../actions/vote';
+import setFilter from '../actions/setFilter';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
+import { orderBy } from 'lodash';
 
 export default class Topic extends React.Component {
   constructor(props) {
@@ -20,7 +22,7 @@ export default class Topic extends React.Component {
         <div className="col s8 offset-s2">
             <video controls src={this.props.question.url} width="100%"/>
         </div>
-
+        <br/>
         <div className="row">
           <div className="col s8">
             <Link to={`/qa/${this.props.code}/answer`} id="record-answer" className="btn-large waves-effect waves-light blue darken-1">Record Your Answer!</Link>
@@ -38,10 +40,25 @@ export default class Topic extends React.Component {
           <h4 className="center-align">Answers</h4>
         </div>
         
-        <AnswerVideoGrid videos={this.props.answers} upvote={this.props.upvote.bind(null, 'answers')} downvote={this.props.downvote.bind(null, 'answers')} />
+        <AnswerVideoGrid videos={this.props.answers} upvote={this.props.upvote.bind(null, 'answers')} downvote={this.props.downvote.bind(null, 'answers')} setFilter={this.props.setFilter} />
 
       </div>
     )
+  }
+}
+
+function orderAnswers(answers, order) {
+  switch(order) {
+    case 'NEWEST':
+      return orderBy(answers, ['createdAt'], ['desc']);
+    case 'OLDEST':
+      return orderBy(answers, ['createdAt'], ['asc']);
+    case 'HIGHEST_RATED':
+      return orderBy(answers, answer => answer.upvote - answer.downvote, ['desc']);
+    case 'POPULAR':
+      return orderBy(answers, answer => (answer.upvote - answer.downvote) * (answer.upvote + answer.downvote), ['desc']);
+    default:
+      return answers;
   }
 }
 
@@ -50,15 +67,16 @@ function mapStateToProps(state, ownProps) {
   return {
     code: code,
     question: state.questionsByCode[code],
-    answers: state.answersOfQuestions[code] || [],
+    answers: orderAnswers(state.answersOfQuestions[code], state.filter) || [],
     user: state.user
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-   upvote: bindActionCreators(vote.bind(null, 'upvote'), dispatch),
-    downvote: bindActionCreators(vote.bind(null, 'downvote'), dispatch)
+    upvote: bindActionCreators(vote.bind(null, 'upvote'), dispatch),
+    downvote: bindActionCreators(vote.bind(null, 'downvote'), dispatch),
+    setFilter: bindActionCreators(setFilter, dispatch)
   };
 }
 

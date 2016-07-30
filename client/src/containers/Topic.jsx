@@ -58,7 +58,7 @@ export default class Topic extends React.Component {
       return (
         <div>
           <div className="col s8 offset-s2">
-            <h4 className="center-align">Question</h4>
+            <h2 className="center-align blue-text">Question</h2>
           </div>
 
           <div className="col s8 offset-s2">
@@ -81,7 +81,7 @@ export default class Topic extends React.Component {
             </div>
           </div>
           <div className="col s8 offset-s2">
-            <h4 className="center-align">Answers</h4>
+            <h2 className="center-align blue-text">Answers</h2>
           </div>
           
           <AnswerVideoGrid videos={this.state.answers} upvote={this.state.upvote.bind(null, 'answers')} downvote={this.state.downvote.bind(null, 'answers')} setFilter={this.state.setFilter} />

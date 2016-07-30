@@ -33,7 +33,7 @@ class RecordQuestion extends React.Component {
   render(){
     return (
       <div>
-        <h1>What's your question?</h1>
+        <h2 className='center-align blue-text'>What's your question?</h2>
         <Record addToState={this.addToState} addTags={this.addTags}/>
         <div>
         {this.state.tagData.length > 0 ? <h4>I got some tags for ya:</h4> : null}

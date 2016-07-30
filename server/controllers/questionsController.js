@@ -49,7 +49,7 @@ const getQuestion = function(req, res) {
 //Create Question video with aws public url and uniq code
 //Send code to client on success
 const createQuestion = function(req, res) {
-  let videoCode = shortid.generate();
+  var videoCode = shortid.generate();
   console.log('');
   req.app.socket.broadcast.emit('makeQuestion', videoCode );
   console.log('');

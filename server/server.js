@@ -1,16 +1,16 @@
-var db = require('./db/db');
-var express = require('express');
-var bodyParser = require('body-parser');
-var router = require('./routes');
+const db = require('./db/db');
+const express = require('express');
+const bodyParser = require('body-parser');
+const router = require('./routes');
 
-var app = express();
+const app = express();
 app.port = process.env.PORT || 3000;
-var server = app.listen(app.port, function() {
+const server = app.listen(app.port, function() {
   console.log('we are listening!');
 });
 
 //app.io = require('socket.io')(server);
-var io = require('socket.io')(server);
+const io = require('socket.io')(server);
 
 app.use(express.static(__dirname + '/../client/public'));
 

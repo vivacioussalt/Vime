@@ -1,4 +1,4 @@
-import {Router, Route} from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import App from './components/App.jsx';
 import Login from './containers/Login.jsx';
 import RecordQuestion from './containers/RecordQuestion.jsx';
@@ -9,6 +9,7 @@ import Error from './components/Error.jsx';
 
 export default (
   <Route path="/" component={App}>
+    <IndexRoute component={Home}>
     <Route path="login" component={Login} />
     <Route path="record/question" component={RecordQuestion} />
     <Route path="qa/:code" component={Topic} />

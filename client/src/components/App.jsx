@@ -13,7 +13,7 @@ export default class App extends React.Component {
       <div>
         <Navigation />
         <div className="container">
-          {this.props.children || <Home />}
+          {this.props.children}
         </div>
       </div>
     )

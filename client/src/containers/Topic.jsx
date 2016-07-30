@@ -41,6 +41,12 @@ export default class Topic extends React.Component {
     }
   }
 
+  copyToClipboard() {
+    //Copy share link to clipboard
+    $('#shareLink').select();
+    document.execCommand("copy");
+  };
+
   // on first load from not on the site, question is undefined but topic still tries to render, so if it is undefined, load an empty div (could instead be a loading gif), which will then be changed when we set state with data
   render() {
     if (this.state.question === undefined) {
@@ -61,7 +67,14 @@ export default class Topic extends React.Component {
           <br/>
           <div className="row">
             <div className="col s8">
+              <div className={window.location.href ? '' : 'hide'}>
+                <input id='shareLink' value={window.location.href} />
+                <a className="waves-effect waves-light btn blue darken-1"  onClick={this.copyToClipboard}>Copy link to share!</a>
+              </div>
+              <br />
+              <div>
               <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn-large waves-effect waves-light blue darken-1">Record Your Answer!</Link>
+              </div>
             </div>
             <div className="col s2">
               <i className="medium material-icons" onClick={this.state.upvote.bind(null, 'questions', this.state.question)}>thumb_up</i>

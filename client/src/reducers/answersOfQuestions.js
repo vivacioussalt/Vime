@@ -3,7 +3,7 @@ function answer(state = [], action) {
   if (index === -1) {
     return state.concat([action.answer]);
   } else {
-    return [...state.slice(0, index), action.answer, ...state.slice(index + 1)];
+    return [...state.slice(0, index), ...state.slice(index + 1), action.answer];
   } 
 }
 
@@ -12,6 +12,19 @@ export default function answersOfQuestions(state = {}, action) {
     case 'ADD_ANSWER':
       var answers = state[action.questionCode] || [];
       return {...state, [action.questionCode]: answer(answers, action)};
+/*
+    if (state[action.questionCode]) {
+      return {
+        ...state,
+        [action.questionCode]: state[action.questionCode].concat(action.answer)
+      }      
+    } else {
+      return {
+        ...state,
+        [action.questionCode]: [action.answer]
+      }
+    }
+*/
     case 'ADD_ALL_ANSWERS':
       return {
         ...state,

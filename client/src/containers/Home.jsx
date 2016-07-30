@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import QuestionVideoGrid from '../components/QuestionVideoGrid';
 import { getAnswersForQuestion } from '../actions/answerActions';
+import setFilter from '../actions/setFilter';
+import { values, orderBy } from 'lodash';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
+  
   render() {
     return (
       <div className="row">
@@ -47,22 +50,40 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <QuestionVideoGrid videos={this.props.questions || []} fetchAnswers={this.props.getAnswersForQuestion} />
+        <div className="section">
+          <h3>Questions</h3>
+          <QuestionVideoGrid videos={this.props.questions} fetchAnswers={this.props.getAnswersForQuestion} setFilter={this.props.setFilter} />
+        </div>
       </div>
     );
   }
 };
 
+function orderQuestions(questions, order) {
+  switch(order) {
+    case 'NEWEST':
+      return orderBy(questions, ['createdAt'], ['desc']);
+    case 'OLDEST':
+      return orderBy(questions, ['createdAt'], ['asc']);
+    case 'HIGHEST_RATED':
+      return orderBy(questions, question => (question.upvote - question.downvote) * (question.upvote + question.downvote), ['desc']); 
+    case 'POPULAR':
+      return orderBy(questions, question => question.upvote + question.downvote, ['desc']);
+    default:
+      return questions;
+  }
+}
 
 function mapStateToProps(state) {
   return {
     questionsByCode: state.questionsByCode,
-    questions: [] 
+    questions: orderQuestions(values(state.questionsByCode), state.filter) || []
   }
 }
 function mapDispatchToProps(dispatch){
   return {
-    getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch)
+    getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch),
+    setFilter: bindActionCreators(setFilter, dispatch)
   }
 }
 

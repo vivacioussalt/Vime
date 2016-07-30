@@ -19,12 +19,13 @@ class Navigation extends React.Component {
     this.context.router.push('/');
   }
   componentDidMount(){
+    console.log('You said hello to the server');
     socket.emit('some message','hello');
     socket.on('someone else', function(msg){
-      console.log('We got a message from someone else', msg);
+      console.log('You got a message from someone else:', msg);
     });
-    socket.on('getquestions', function(msg){
-      console.log('someong said:', msg);
+    socket.on('makeQuestion', function(msg){
+      alert(msg);
     });
   }
   componentWillUnmount(){

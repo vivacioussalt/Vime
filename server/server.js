@@ -23,12 +23,14 @@ app.use('/', router);
 
 
 io.on('connection', function(socket){
-  console.log('USER CONNECTED');
+  console.log('\nUSER CONNECTED\n');
   app.socket=socket;
   socket.on('disconnect', function(){
-    console.log('USER DISCONNECTED ~~~~~~~~~~~~~');
+    console.log('\nUSER DISCONNECTED\n');
   })
   socket.on('some message', function(msg){
+    console.log('A client sent you a msg:', msg);
+    console.log('Let\'s tell everyone else hi');
     socket.broadcast.emit('someone else','hi');
   });
 });

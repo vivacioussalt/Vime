@@ -56,10 +56,8 @@ const updateAnswerVotes = function(req, res) {
   Answer.findOne({ where: {id: body.id} })
   .then(answer => answer.update({ [body.type]: body.value }))
   .then(answer => { 
-    Question.findOne({ attributes: ['code'], where: {id: answer.questionId} })
-    .then(question => {
-      res.json(Object.assign(answer.toJSON(), {questionCode: question.dataValues.code}));
-    })
+    Question.findOne({ attributes: ['code'], where: {id: body.questionId} })
+    .then(question => res.json({answer: answer, questionCode: question.code}))
   }) 
   .catch(err => res.sendStatus(500))
 }

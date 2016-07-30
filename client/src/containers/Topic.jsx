@@ -67,24 +67,24 @@ export default class Topic extends React.Component {
           <br/>
           <div className="row">
             <div className="col s8">
-                <input id='shareLink' value={window.location.href} />
-                <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn waves-effect waves-light blue darken-1" style={{'margin-right': '5px'}}>Record Your Answer!</Link>
-                <a className="waves-effect waves-light btn blue darken-1" style={{'margin-left': '5px'}} onClick={this.copyToClipboard}>Copy link to share!</a>  
+                <input id='shareLink' defaultValue={window.location.href} />
+                <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn waves-effect waves-light blue darken-1" style={{'marginRight': '5px'}}>Record Your Answer!</Link>
+                <a className="waves-effect waves-light btn blue darken-1" style={{'marginLeft': '5px'}} onClick={this.copyToClipboard}>Copy link to share!</a>  
             </div>
-            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'text-align': 'center'}}>
-              <p>{this.state.question.upvote || 0} Upvotes</p>
-              <i className="medium material-icons" onClick={this.state.upvote.bind(null, 'questions', this.state.question)}>thumb_up</i>
+            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'textAlign': 'center'}}>
+              <i className="medium material-icons" onClick={this.props.upvote.bind(null, 'questions', this.state.question)}>thumb_up</i>
+              <p>{this.props.question.upvote || 0} Upvotes</p>
             </div>
-            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'text-align': 'center'}}>
-              <p>{this.state.question.downvote || 0} Downvotes</p>
-              <i className="medium material-icons" onClick={this.state.downvote.bind(null, 'questions', this.state.question)}>thumb_down</i>
+            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'textAlign': 'center'}}>
+              <i className="medium material-icons" onClick={this.props.downvote.bind(null, 'questions', this.state.question)}>thumb_down</i>
+              <p>{this.props.question.downvote || 0} Downvotes</p>
             </div>
           </div>
           <div className="col s8 offset-s2">
             <h4 className="center-align">Answers</h4>
           </div>
           
-          <AnswerVideoGrid videos={this.state.answers} upvote={this.state.upvote.bind(null, 'answers')} downvote={this.state.downvote.bind(null, 'answers')} setFilter={this.state.setFilter} />
+          <AnswerVideoGrid videos={this.state.answers} upvote={this.props.upvote.bind(null, 'answers')} downvote={this.props.downvote.bind(null, 'answers')} setFilter={this.state.setFilter} />
         </div>
     );
     }

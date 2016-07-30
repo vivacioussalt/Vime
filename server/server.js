@@ -2,12 +2,12 @@ const db = require('./db/db');
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./routes');
+const socket = require('socket.io');
 
 const stripeHandler = require('./utility/stripeHandler');
 
 const app = express();
 
-const io = require('socket.io')(server);
 
 app.use(express.static(__dirname + '/../client/public'));
 
@@ -32,6 +32,8 @@ const server = app.listen(port, function() {
   console.log('we are listening!');
 });
 
+
+const io = socket(server);
 io.on('connection', function(socket){
   console.log('\nUSER CONNECTED\n');
   app.socket=socket;

@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 var React = require('react');
 var ReactScriptLoaderMixin = require('react-script-loader').ReactScriptLoaderMixin;
 
@@ -21,7 +22,6 @@ var PaymentForm = React.createClass({
 
   onScriptLoaded: function() {
     if (!PaymentForm.getStripeToken) {
-      // Put your publishable key here
       Stripe.setPublishableKey('pk_test_z9YfRtJFE0bOPNH3ITLbbf3J');
 
       this.setState({ stripeLoading: false, stripeLoadingError: false });
@@ -34,28 +34,29 @@ var PaymentForm = React.createClass({
 
   onSubmit: function(event) {
     var self = this;
-    console.log('this is the event', event);
-    console.log('this is the self value', self);
+    var videoId = parseInt(self.props.location.hash.slice(1));
+    var donationAmount = event.target['4'].valueAsNumber;
     event.preventDefault();
     this.setState({ submitDisabled: true, paymentError: null });
-    // send form here
+
     Stripe.createToken(event.target, function(status, response) {
       if (response.error) {
         self.setState({ paymentError: response.error.message, submitDisabled: false });
       }
       else {
         self.setState({ paymentComplete: true, submitDisabled: false, token: response.id });
-        // make request to your server here!
+
         var obj = {};
-        data.stripeToken = response.id;
+        obj.stripeToken = response.id;
+        obj.userId = self.props.userId;
+        obj.videoId = videoId;
+        obj.amount = donationAmount;
         $.ajax({
           url: '/api/stripe',
           dataType: 'json',
           type: 'POST',
           data: obj,
           success: function(data) {
-            // this.setState({data: data});
-            console.log(data);
           }.bind(this),
           error: function(xhr, status, err) {
             console.error(this.props.url, status, err.toString());
@@ -63,7 +64,6 @@ var PaymentForm = React.createClass({
         });
 
         console.log('make request to server');
-        console.log(response);
       }
     });
   },
@@ -79,19 +79,26 @@ var PaymentForm = React.createClass({
       return <div>Payment Complete!</div>;
     }
     else {
-      return (<form onSubmit={this.onSubmit} >
+      return (
+      <form onSubmit={this.onSubmit} >
         <span>{ this.state.paymentError }</span><br />
+        <h5>Donate for great answers</h5>
         <input type='text' data-stripe='number' placeholder='credit card number' /><br />
         <input type='text' data-stripe='exp-month' placeholder='expiration month' /><br />
         <input type='text' data-stripe='exp-year' placeholder='expiration year' /><br />
         <input type='text' data-stripe='cvc' placeholder='cvc' /><br />
-        <input type='text' name='amount' placeholder='Amount to donate' /><br />
-        <input name="userId" value="1" type="hidden" />
-        <input name="answerId" value="1" type="hidden" />
-        <input disabled={this.state.submitDisabled} type='submit' value='Purchase' />
+        <input type='number' id="amount" placeholder="Donation Amount" />
+        <input disabled={this.state.submitDisabled} type='submit' value='Donate' />
       </form>);
     }
   }
 });
 
-export default PaymentForm;
+function mapStateToProps(state) {
+  return {
+    userId: state.user ? state.user.id : null 
+  };
+}
+
+export default connect(mapStateToProps, null)(PaymentForm);
+// export default PaymentForm;

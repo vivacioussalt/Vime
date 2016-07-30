@@ -36,7 +36,7 @@ export default class Record extends React.Component {
 
   render() {
     return (
-      <div className="col s8 offset-s2">
+      <div className="col s8 offset-s2 center-align">
         <br/>
         <video className={this.state.finishedRecording ? 'hide' : ''} id="gum" src={this.state.streamVidUrl} autoPlay muted width="100%"></video>
         <video className={this.state.finishedRecording ? '' : 'hide'} id="recorded" src={this.state.recVidUrl} width="100%"></video>
@@ -45,8 +45,9 @@ export default class Record extends React.Component {
           <a className="waves-effect waves-light btn blue darken-1" id="record" onClick={this.toggleRec.bind(this)}>{this.state.toggleRecText}</a>
           <a className={this.state.finishedRecording ? 'waves-effect waves-light btn blue darken-1' : 'hide waves-effect waves-light btn blue darken-1'} id="upload" onClick={this.uploadRec.bind(this)}>Submit</a>
         </div>
-        <div className={this.state.uploading ? 'progress' : 'hide progress'}>
-          <div className="indeterminate"></div>
+        <div className={this.state.uploading ? 'center-align' : 'hide'}>
+          <h3>Seasoning your video!</h3>
+          <img alt='Saving your video' src='https://i10.photobucket.com/albums/a134/tinytimmie33/saltshaker.gif' width="10%" />
         </div>
       </div>
     );

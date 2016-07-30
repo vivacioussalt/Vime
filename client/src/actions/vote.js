@@ -5,7 +5,7 @@ import { addAnswer } from './answerActions';
 function vote(type, videoType, video) {
   const value = type === 'upvote' ? video.upvote + 1 : video.downvote + 1;
   return dispatch => {
-    fetch(`http://localhost:3000/api/${videoType}`, {
+    fetch(`/api/${videoType}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' }, 
       body: JSON.stringify({

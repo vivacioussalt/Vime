@@ -3,12 +3,12 @@ const Video = ({ video, upvote, downvote }) => (
     <video className="responsive-video" controls src={video.url} width="100%"/>
     <div className="row">
       <div className="col s3">
-        <i className="small material-icons" onClick={upvote}>thumb_up</i>
-        <p>{video.upvote || 0}</p>
+        <i className="small material-icons" onClick={upvote.bind(null, video)}>thumb_up</i>
+        <p>{video.upvote}</p>
       </div>
       <div className="col s3">
-        <i className="small material-icons" onClick={downvote}>thumb_down</i>
-        <p>{video.downvot || 0}</p>
+        <i className="small material-icons" onClick={downvote.bind(null, video)}>thumb_down</i>
+        <p>{video.downvote}</p>
       </div>
     </div>
   </div>

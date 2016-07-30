@@ -41,6 +41,12 @@ export default class Topic extends React.Component {
     }
   }
 
+  copyToClipboard() {
+    //Copy share link to clipboard
+    $('#shareLink').select();
+    document.execCommand("copy");
+  };
+
   // on first load from not on the site, question is undefined but topic still tries to render, so if it is undefined, load an empty div (could instead be a loading gif), which will then be changed when we set state with data
   render() {
     if (this.state.question === undefined) {
@@ -61,15 +67,17 @@ export default class Topic extends React.Component {
           <br/>
           <div className="row">
             <div className="col s8">
-              <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn-large waves-effect waves-light blue darken-1">Record Your Answer!</Link>
+                <input id='shareLink' value={window.location.href} />
+                <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn waves-effect waves-light blue darken-1" style={{'margin-right': '5px'}}>Record Your Answer!</Link>
+                <a className="waves-effect waves-light btn blue darken-1" style={{'margin-left': '5px'}} onClick={this.copyToClipboard}>Copy link to share!</a>  
             </div>
-            <div className="col s2">
+            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'text-align': 'center'}}>
+              <p>{this.state.question.upvote || 0} Upvotes</p>
               <i className="medium material-icons" onClick={this.state.upvote.bind(null, 'questions', this.state.question)}>thumb_up</i>
-              <p>{this.state.question.upvote || 0}</p>
             </div>
-            <div className="col s2">
+            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'text-align': 'center'}}>
+              <p>{this.state.question.downvote || 0} Downvotes</p>
               <i className="medium material-icons" onClick={this.state.downvote.bind(null, 'questions', this.state.question)}>thumb_down</i>
-              <p>{this.state.question.downvote || 0}</p>
             </div>
           </div>
           <div className="col s8 offset-s2">

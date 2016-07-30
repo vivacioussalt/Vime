@@ -1,7 +1,6 @@
 const Question = require('../models/models.js').Question;
 const shortid = require('shortid');
 const tagsController = require('./tagsController.js');
-var shortid = require('shortid');
 
 //return all questions from the database
 const getAllQuestions = function(req, res) {

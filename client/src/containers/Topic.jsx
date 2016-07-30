@@ -5,7 +5,7 @@ import vote from '../actions/vote';
 import setFilter from '../actions/setFilter';
 import { getAnswersForQuestion } from '../actions/answerActions';
 import { getQuestions } from '../actions/questionAction';
-
+import Chip from 'material-ui/Chip';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
 import { orderBy } from 'lodash';
 
@@ -14,7 +14,16 @@ export default class Topic extends React.Component {
     super(props);
     this.state = {
       ...props
-    }
+    };
+    this.styles = {
+      chip: {
+        margin: 4
+      },
+      wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap'
+      }
+    };
     console.log('topic', props);
   }
 
@@ -41,11 +50,23 @@ export default class Topic extends React.Component {
     }
   }
 
+
   copyToClipboard() {
     //Copy share link to clipboard
     $('#shareLink').select();
     document.execCommand("copy");
   };
+
+  renderTag(data) {
+    return (
+      <Chip
+        key={data}
+        style={this.styles.chip}
+      >
+        {data}
+      </Chip>
+    );
+  }
 
   // on first load from not on the site, question is undefined but topic still tries to render, so if it is undefined, load an empty div (could instead be a loading gif), which will then be changed when we set state with data
   render() {
@@ -65,6 +86,9 @@ export default class Topic extends React.Component {
               <video controls src={this.state.question.url} width="100%"/>
           </div>
           <br/>
+          <div className="row" style={this.styles.wrapper}>
+            {this.state.question.tags.map(this.renderTag, this)}
+          </div>
           <div className="row">
             <div className="col s8">
                 <input id='shareLink' defaultValue={window.location.href} />

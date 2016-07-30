@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-let QuestionVideoGrid = ({videos, fetchAnswers}) => {
+let QuestionVideoGrid = ({ videos, fetchAnswers }) => {
   return (
     <div className="row center">
       {videos.map(video => 
@@ -15,6 +15,3 @@ let QuestionVideoGrid = ({videos, fetchAnswers}) => {
 QuestionVideoGrid.propTypes = { videos: React.PropTypes.array.isRequired };
 
 export default QuestionVideoGrid;
-
-//           <Link to={`/qa/${videoCode}`}>
-          // </Link>

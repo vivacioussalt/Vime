@@ -1,3 +1,4 @@
+import React from 'react';
 import Video from './Video';
 
 const AnswerVideoGrid = ({ videos, upvote, downvote }) => {

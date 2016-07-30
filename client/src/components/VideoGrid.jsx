@@ -1,3 +1,5 @@
+import React from 'react';
+
 let VideoGrid = ({ videos, handleClick = () => {} }) => {
   return (
     <div className="row center">

@@ -1,3 +1,4 @@
+import React from 'react';
 import Record from './../components/Record.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';

@@ -1,4 +1,6 @@
 'use strict';
+import React from 'react';
+
 import Home from './Home.jsx';
 import Navigation from './Navigation.jsx';
 

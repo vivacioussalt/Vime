@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
 import { getAnswersForQuestion } from '../actions/answerActions';

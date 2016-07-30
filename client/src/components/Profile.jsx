@@ -1,3 +1,4 @@
+import React from 'react';
 import QuestionVideoGrid from './QuestionVideoGrid';
 import AnswerVideoGrid from './AnswerVideoGrid';
 

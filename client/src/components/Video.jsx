@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Video = ({ video, upvote, downvote }) => ( 
   <div>
     <video className="responsive-video" controls src={video.url} width="100%"/>

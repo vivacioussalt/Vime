@@ -1,4 +1,5 @@
-var React = require('react');
+import React from 'react';
+
 var ReactScriptLoaderMixin = require('react-script-loader').ReactScriptLoaderMixin;
 
 var PaymentForm = React.createClass({

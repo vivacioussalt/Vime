@@ -9,11 +9,6 @@ module.exports = {
     path: __dirname + '/client/public',
     filename: 'bundle.js'
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      'React': 'react'
-    })
-  ],
   module: {
     loaders: [{
       test: /\.jsx?$/,

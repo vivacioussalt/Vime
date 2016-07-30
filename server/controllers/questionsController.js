@@ -46,10 +46,19 @@ var createQuestion = function(req, res) {
   });
 };
 
+// update upvote or downvote for question
+const updateQuestionVotes = function(req, res) {
+  const body = req.body;
+  Question.findOne({ where: {id: body.id} })
+  .then(question => question.update({ [body.type]: body.value }))
+  .then(question => res.json(question)) 
+  .catch(err => res.sendStatus(500))
+}
 
 module.exports = {
   getAllQuestions: getAllQuestions,
   getQuestionsForUser: getQuestionsForUser,
   getQuestion: getQuestion,
-  createQuestion: createQuestion
+  createQuestion: createQuestion,
+  updateQuestionVotes
 };

@@ -50,10 +50,22 @@ var createAnswer = function(req, res) {
   });
 };
 
+// update upvote or downvote for answer 
+const updateAnswerVotes = function(req, res) {
+  const body = req.body;
+  Answer.findOne({ where: {id: body.id} })
+  .then(answer => answer.update({ [body.type]: body.value }))
+  .then(answer => { 
+    Question.findOne({ attributes: ['code'], where: {id: body.questionId} })
+    .then(question => res.json({answer: answer, questionCode: question.code}))
+  }) 
+  .catch(err => res.sendStatus(500))
+}
 
 module.exports = {
   getAnswersForUser: getAnswersForUser,
   getAnswersForQuestion: getAnswersForQuestion,
   getAnswer: getAnswer,
-  createAnswer: createAnswer
+  createAnswer: createAnswer,
+  updateAnswerVotes: updateAnswerVotes
 };

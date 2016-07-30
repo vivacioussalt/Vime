@@ -1,32 +1,13 @@
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import vote from '../actions/vote';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
-
-
 
 export default class Topic extends React.Component {
   constructor(props) {
-    super(props)
-    const code = this.props.params.code;
-    const question = this.props.questionsByCode[code];
-    const answers = this.props.answersOfQuestions[code];
-    this.state = {
-      code,
-      question, 
-      answers: answers || []
-    }
-  }
-
-  componentDidMount() {
-    // this.setState({
-    //   code: code,
-    //   questionUrl: question.url
-    //   // answers: this.props.answersOfQuestions[code] || []
-    // })
-    // find the correct question object by using params.id to match the code in this.props.questionsById
-    // set this url to state, so it can be passed down into video src
-    // find answers urls, so they can be passed down into video grid
+    super(props);
+    console.log('topic', props);
   }
 
   render() {
@@ -37,34 +18,50 @@ export default class Topic extends React.Component {
         </div>
 
         <div className="col s8 offset-s2">
-            <video controls src={this.state.question.url} width="100%"/>
+            <video controls src={this.props.question.url} width="100%"/>
         </div>
 
-        <br />
-        <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn-large waves-effect waves-light blue darken-1">Record Your Answer!</Link>
-        <br />
+        <div className="row">
+          <div className="col s8">
+            <Link to={`/qa/${this.props.code}/answer`} id="record-answer" className="btn-large waves-effect waves-light blue darken-1">Record Your Answer!</Link>
+          </div>
+          <div className="col s2">
+            <i className="medium material-icons" onClick={this.props.upvote.bind(null, 'questions', this.props.question)}>thumb_up</i>
+            <p>{this.props.question.upvote || 0}</p>
+          </div>
+          <div className="col s2">
+            <i className="medium material-icons" onClick={this.props.downvote.bind(null, 'questions', this.props.question)}>thumb_down</i>
+            <p>{this.props.question.downvote || 0}</p>
+          </div>
+        </div>
         <div className="col s8 offset-s2">
           <h4 className="center-align">Answers</h4>
         </div>
         
-        <AnswerVideoGrid videos={this.state.answers}/>
+        <AnswerVideoGrid videos={this.props.answers} upvote={this.props.upvote.bind(null, 'answers')} downvote={this.props.downvote.bind(null, 'answers')} />
 
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  var code = ownProps.params.code;
   return {
-    questionsByCode: state.questionsByCode,
-    answersOfQuestions: state.answersOfQuestions,
+    code: code,
+    question: state.questionsByCode[code],
+    answers: state.answersOfQuestions[code] || [],
     user: state.user
   };
 }
-// function mapDispatchToProps(dispatch) {
-  // return bindActionCreators(Actions, dispatch);
-// }
 
-export default connect(mapStateToProps, null)(Topic);
+function mapDispatchToProps(dispatch) {
+  return {
+   upvote: bindActionCreators(vote.bind(null, 'upvote'), dispatch),
+    downvote: bindActionCreators(vote.bind(null, 'downvote'), dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Topic);
 
 

@@ -1,9 +1,11 @@
-let AnswerVideoGrid = ({videos}) => {
+import Video from './Video';
+
+const AnswerVideoGrid = ({ videos, upvote, downvote }) => {
   return (
     <div className="row center">
       {videos.map(video => 
         <div key={video.id} className="col s4">
-          <video controls src={video.url} width="100%"/>
+          <Video video={video} upvote={upvote} downvote={downvote} />
         </div>
       )}
     </div>

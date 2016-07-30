@@ -147,10 +147,12 @@ export default class Record extends React.Component {
   }
 
   closeStream() {
-    var audioTrack = this.state.stream.getTracks()[0];
-    var videoTrack = this.state.stream.getTracks()[1];
-    audioTrack.stop();
-    videoTrack.stop();
+    if (this.state.stream) {
+      var audioTrack = this.state.stream.getTracks()[0];
+      var videoTrack = this.state.stream.getTracks()[1];
+      audioTrack.stop();
+      videoTrack.stop();
+    }
   }
 
   stopRec() {

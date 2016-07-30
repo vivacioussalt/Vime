@@ -1,8 +1,7 @@
 import { push } from 'react-router-redux';
 import { checkStatus, toJSON } from './fetchUtils';
 
-
-function add({questionCode, answer}) {
+function addAnswer({questionCode, answer}) {
   return {
     type: 'ADD_ANSWER',
     questionCode,
@@ -10,10 +9,9 @@ function add({questionCode, answer}) {
   }
 }
 
-
-function addAnswer({questionCode, answer}) {
+function postAnswer({questionCode, answer}) {
   return function(dispatch) {
-    dispatch(add({questionCode, answer}));
+    dispatch(addAnswer({questionCode, answer}));
     dispatch(push(`/qa/${questionCode}`));
   }
 }
@@ -40,4 +38,4 @@ function getAnswersForQuestion(id, code) {
   }
 }
 
-export { addAnswer, addAllAnswers, getAnswersForQuestion };
+export { addAnswer, postAnswer, addAllAnswers, getAnswersForQuestion };

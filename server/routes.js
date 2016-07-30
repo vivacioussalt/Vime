@@ -9,11 +9,12 @@ const router = require('express').Router();
 
 router.get('/api/questions', questionsController.getAllQuestions);
 router.post('/api/questions', questionsController.createQuestion);
-
+router.put('/api/questions', questionsController.updateQuestionVotes);
 router.get('/api/question', questionsController.getQuestion);
 
 router.get('/api/answers', answersController.getAnswersForQuestion);
 router.post('/api/answers', answersController.createAnswer);
+router.put('/api/answers', answersController.updateAnswerVotes);
 
 router.get('/api/presigned', generatePreSignedUrl);
 

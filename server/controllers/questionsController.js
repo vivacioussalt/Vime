@@ -1,14 +1,24 @@
 const Question = require('../models/models.js').Question;
 const shortid = require('shortid');
 const tagsController = require('./tagsController.js');
+const sequelize = require('../db/db.js');
 
 //return all questions from the database
 const getAllQuestions = function(req, res) {
-  Question.findAll().then(function(questions) {
-    res.send(questions.map(question => {
-      return question.dataValues
-    }));
-  });
+  var queryString = `SELECT questions."id", questions."code",
+                      questions."upvote", questions."downvote",
+                      questions."createdAt", questions."url",
+                      array_agg(tags."tag") as tags
+                    FROM "questions" questions
+                    JOIN "questiontags" qt
+                    ON questions."id" = qt."questionId"
+                    JOIN "tags" tags ON qt."tagId" = tags."id"
+                    GROUP BY questions.id`;
+  sequelize.query(queryString)
+  .spread((questions, metadata) => {
+    res.send(questions);
+  })
+  .catch(err => res.sendStatus(500));
 };
 
 //return all questions for a USER from the database

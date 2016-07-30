@@ -26,7 +26,8 @@ class App extends React.Component {
       console.log('You got a message from someone else:', msg);
     });
     socket.on('makeQuestion', function(msg){
-      alert(msg);
+      Materialize.toast('New question video: ' + msg, 2000);
+      //Add new state for notification
       this.props.getQuestions();
     });
   }

@@ -1,5 +1,6 @@
 const Question = require('../models/models.js').Question;
 const shortid = require('shortid');
+const tagsController = require('./tagsController.js');
 
 //return all questions from the database
 const getAllQuestions = function(req, res) {
@@ -38,12 +39,30 @@ const createQuestion = function(req, res) {
   req.app.socket.broadcast.emit('makeQuestion', 'Someone made a question!');
   console.log('');
   console.log('Creating QUESTION video with url:', req.body.publicUrl);
+  console.log('question tags', req.body.tags);
   Question.create({
     url: req.body.publicUrl,
     userId: req.body.userId,
     code: shortid.generate()
   })
   .then(function(question) {
+    var tags = req.body.tags;
+    if (tags.length) {
+      tags.forEach((tag) => {
+        tagsController.createTag(tag)
+        .spread((tagEntry, created) => {
+            question.addTag(tagEntry.dataValues.id);
+          // console.log('what is in this tagEntry?', tagEntry.dataValues);
+          // if (created) {
+            // console.log('already created this tag, what is in it?', tagEntry.dataValues);
+          // }
+        })
+          // if (created) {
+          // } else {
+            
+      })
+    }
+
     console.log('created QUESTION video:', question);
     res.send(question.dataValues);
   });

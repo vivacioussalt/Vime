@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-const QuestionVideoGrid = ({ videos, fetchAnswers, setFilter }) => {
+const QuestionVideoGrid = ({ videos, goToTopic, setFilter }) => {
   return (
     <div className="row center">
       <p className="col s1">Filter: </p>
@@ -11,7 +11,7 @@ const QuestionVideoGrid = ({ videos, fetchAnswers, setFilter }) => {
       <div className="col s12">
         {videos.map(video => 
           <div key={video.id} className="col s4">
-              <video onClick={fetchAnswers.bind(null, video.id, video.code)} controls src={video.url} width="100%"/>
+              <video onClick={goToTopic.bind(null, video.id, video.code)} controls src={video.url} width="100%"/>
           </div>
         )}
       </div>

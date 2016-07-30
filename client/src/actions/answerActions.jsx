@@ -24,6 +24,11 @@ function addAllAnswers(code, answers) {
   }
 }
 
+function goToTopic(id, code) {
+  return function(dispatch) {
+    dispatch(push(`/qa/${code}`));
+  }
+}
 function getAnswersForQuestion(id, code) {
   return function(dispatch) {
     return fetch(`/api/answers?questionId=${id}`)
@@ -32,10 +37,9 @@ function getAnswersForQuestion(id, code) {
     .then(answers => {
       console.log(answers);
       dispatch(addAllAnswers(code, answers));
-      dispatch(push(`/qa/${code}`));
     })
     .catch(err => console.warn('error in getAnswers', err))
   }
 }
 
-export { addAnswer, postAnswer, addAllAnswers, getAnswersForQuestion };
+export { addAnswer, postAnswer, addAllAnswers, getAnswersForQuestion, goToTopic };

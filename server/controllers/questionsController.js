@@ -3,6 +3,10 @@ var shortid = require('shortid');
 
 //return all questions from the database
 var getAllQuestions = function(req, res) {
+  console.log('');
+  console.log('GETTING ALLLLLL QUESTIONS');
+  req.app.socket.broadcast.emit('getquestions', 'Someone Got Questions');
+  console.log('');
   Question.findAll().then(function(questions) {
     res.send(questions.map(question => {
       return question.dataValues

@@ -23,6 +23,9 @@ class Navigation extends React.Component {
     socket.on('someone else', function(msg){
       console.log('We got a message from someone else', msg);
     });
+    socket.on('getquestions', function(msg){
+      console.log('someong said:', msg);
+    });
   }
   componentWillUnmount(){
     socket.close();

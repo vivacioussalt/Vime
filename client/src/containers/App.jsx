@@ -19,7 +19,8 @@ class App extends React.Component {
 	}
   componentWillMount(){
     //Load up questions when user starts app
-    this.props.getQuestions();
+    var getQuestions = this.props.getQuestions;
+    getQuestions();
     console.log('You said hello to the server');
     socket.emit('some message','hello');
     socket.on('someone else', function(msg){
@@ -28,7 +29,8 @@ class App extends React.Component {
     socket.on('makeQuestion', function(msg){
       Materialize.toast('New question video: ' + msg, 2000);
       //Add new state for notification
-      this.props.getQuestions();
+      getQuestions();
+      //this.props.getQuestions();
     });
   }
   componentWillUnmount(){

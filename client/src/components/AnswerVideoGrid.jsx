@@ -4,7 +4,7 @@ import StripeButton from './StripeButton';
 const AnswerVideoGrid = ({ videos, upvote, downvote, setFilter }) => {
   return (
     <div className="row center">
-      <p className="col s1">Filter: </p>
+      <h5 className="center-align grey-text-lighten-1">Filter By</h5>
       <p className="col s2 center-align btn-medium waves-effect waves-light blue darken-1" onClick={setFilter.bind(null, 'NEWEST')}>Newest</p>
       <p className="col s2 offset-s1 center-align btn-medium waves-effect waves-light blue darken-1" onClick={setFilter.bind(null, 'OLDEST')}>Oldest</p>
       <p className="col s2 offset-s1 center-align btn-medium waves-effect waves-light blue darken-1" onClick={setFilter.bind(null, 'HIGHEST_RATED')}>Highest Rated</p>

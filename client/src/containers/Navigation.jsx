@@ -17,7 +17,7 @@ class Navigation extends React.Component {
       <nav className="light-blue lighten-1" role="navigation">
         <div className="nav-wrapper container">
           <img className="logo" src="/assets/images/grandiose-potatoe.gif" height="100%"/>
-          <Link id="logo-container" to="/" className="brand-logo"> Vime </Link>
+          <Link id="logo-container" to="/" className="brand-logo"> Fryes </Link>
           <a href="#" data-activates="mobile-demo" className="right button-collapse"><i className="material-icons">menu</i></a>
           {this.props.location === '/login' ? '' : this.props.user ? 
             <ul id="nav-mobile" className="right hide-on-med-and-down">

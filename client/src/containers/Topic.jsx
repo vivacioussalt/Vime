@@ -67,22 +67,17 @@ export default class Topic extends React.Component {
           <br/>
           <div className="row">
             <div className="col s8">
-              <div className={window.location.href ? '' : 'hide'}>
                 <input id='shareLink' value={window.location.href} />
-                <a className="waves-effect waves-light btn blue darken-1"  onClick={this.copyToClipboard}>Copy link to share!</a>
-              </div>
-              <br />
-              <div>
-              <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn-large waves-effect waves-light blue darken-1">Record Your Answer!</Link>
-              </div>
+                <Link to={`/qa/${this.state.code}/answer`} id="record-answer" className="btn waves-effect waves-light blue darken-1" style={{'margin-right': '5px'}}>Record Your Answer!</Link>
+                <a className="waves-effect waves-light btn blue darken-1" style={{'margin-left': '5px'}} onClick={this.copyToClipboard}>Copy link to share!</a>  
             </div>
-            <div className="col s2">
+            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'text-align': 'center'}}>
+              <p>{this.state.question.upvote || 0} Upvotes</p>
               <i className="medium material-icons" onClick={this.state.upvote.bind(null, 'questions', this.state.question)}>thumb_up</i>
-              <p>{this.state.question.upvote || 0}</p>
             </div>
-            <div className="col s2">
+            <div className="col s2" style={{color: '#1E88E5', cursor: 'pointer', 'text-align': 'center'}}>
+              <p>{this.state.question.downvote || 0} Downvotes</p>
               <i className="medium material-icons" onClick={this.state.downvote.bind(null, 'questions', this.state.question)}>thumb_down</i>
-              <p>{this.state.question.downvote || 0}</p>
             </div>
           </div>
           <div className="col s8 offset-s2">

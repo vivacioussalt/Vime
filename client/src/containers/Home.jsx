@@ -48,6 +48,7 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
+        <
         <QuestionVideoGrid videos={this.props.questions || []} fetchAnswers={this.props.getAnswersForQuestion} />
       </div>
     );
@@ -57,13 +58,13 @@ class Home extends React.Component {
 function orderQuestions(questions, order='POPULAR') {
   switch(order) {
     case 'NEWEST':
-      return orderBy(questions, ['createdAt'], ['asc']);
+      return orderBy(questions, ['createdAt'], ['desc']);
     case 'OLDEST':
-      return orderBy(questions, ['createdAt'], ['dsc']);
+      return orderBy(questions, ['createdAt'], ['asc']);
     case 'HIGHEST_RATED':
-      return orderBy(questions, (a, b) => a.upvote - b.upvote); 
+      return orderBy(questions, question => (question.upvote - question.downvote) * (question.upvote + question.downvote), ['desc']); 
     case 'POPULAR':
-      return orderBy(questions, (a, b) => a.upvote + a.downvote - b.upvote - b.downvote); 
+      return orderBy(questions, question => question.upvote + question.downvote, ['desc']);
     default:
       return questions;
   }

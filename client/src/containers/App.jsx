@@ -1,13 +1,20 @@
 'use strict';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { getQuestions } from '../actions/questionAction';
+
 import Home from './Home.jsx';
 import Navigation from './Navigation.jsx';
 
-export default class App extends React.Component {
+class App extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-
-	//Render nested routes if the user has navigated to a nested route endpoint, otherwise render the home component
+  componentWillMount(){
+    //Load up questions when user starts app
+    this.props.getQuestions();
+  }
 	render() {
     return (
       <div>
@@ -19,3 +26,16 @@ export default class App extends React.Component {
     )
 	}
 }
+
+function mapStateToProps(state) {
+  return {
+    questionsByCode: state.questionsByCode,
+  }
+}
+function mapDispatchToProps(dispatch){
+  return {
+    getQuestions: bindActionCreators(getQuestions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

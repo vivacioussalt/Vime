@@ -1,5 +1,7 @@
 const Question = require('../models/models.js').Question;
 const shortid = require('shortid');
+const tagsController = require('./tagsController.js');
+var shortid = require('shortid');
 
 //return all questions from the database
 const getAllQuestions = function(req, res) {
@@ -47,8 +49,12 @@ const createQuestion = function(req, res) {
   .then(function(question) {
     var tags = req.body.tags;
     if (tags.length) {
-      tags.forEach((tag) => question.addTag(tag));
-    // question.addTag
+      tags.forEach((tag) => {
+        tagsController.createTag(tag)
+        .then((tagData) => {
+          question.addTag(tagData.dataValues.id);
+        })
+      })
     }
 
     console.log('created QUESTION video:', question);

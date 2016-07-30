@@ -34,6 +34,7 @@ var PaymentForm = React.createClass({
 
   onSubmit: function(event) {
     var self = this;
+    var videoId = parseInt(self.props.location.hash.slice(1));
     var donationAmount = event.target['4'].valueAsNumber;
     event.preventDefault();
     this.setState({ submitDisabled: true, paymentError: null });
@@ -46,8 +47,10 @@ var PaymentForm = React.createClass({
         self.setState({ paymentComplete: true, submitDisabled: false, token: response.id });
 
         var obj = {};
+        debugger;
         obj.stripeToken = response.id;
         obj.userId = self.props.userId;
+        obj.videoId = videoId;
         obj.amount = donationAmount;
         $.ajax({
           url: '/api/stripe',
@@ -79,15 +82,16 @@ var PaymentForm = React.createClass({
       return <div>Payment Complete!</div>;
     }
     else {
-      return (<form onSubmit={this.onSubmit} >
+      return (
+      <form onSubmit={this.onSubmit} >
         <span>{ this.state.paymentError }</span><br />
-        <h5>Donate $5</h5>
+        <h5>Donate for great answers</h5>
         <input type='text' data-stripe='number' placeholder='credit card number' /><br />
         <input type='text' data-stripe='exp-month' placeholder='expiration month' /><br />
         <input type='text' data-stripe='exp-year' placeholder='expiration year' /><br />
         <input type='text' data-stripe='cvc' placeholder='cvc' /><br />
         <input type='number' id="amount" placeholder="Donation Amount" />
-        <input disabled={this.state.submitDisabled} type='submit' value='Purchase' />
+        <input disabled={this.state.submitDisabled} type='submit' value='Donate' />
       </form>);
     }
   }

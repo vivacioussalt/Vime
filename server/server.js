@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./routes');
 const socket = require('socket.io');
+const path = require('path');
 
 const stripeHandler = require('./utility/stripeHandler');
 
@@ -23,7 +24,7 @@ app.post('/stripe', stripeHandler.processDonation);
 app.get('/stripe/callback', stripeHandler.getStripeId);
 
 // serve index.html for rest
-router.get('*', (req, res)=>{
+app.get('*', (req, res)=>{
   res.sendFile(path.resolve(__dirname + '/../client/public/index.html'));
 });
 

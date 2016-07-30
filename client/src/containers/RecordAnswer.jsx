@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { postAnswer } from './../actions/answerActions.jsx';
+import { postVideoUrl } from '../recordUtil.js';
 
 
 class RecordAnswer extends React.Component {
@@ -15,17 +16,22 @@ class RecordAnswer extends React.Component {
     this.addToState = this.addToState.bind(this);
   }
 
-  addToState(data) {
-    var action = {
-      questionCode: this.state.code,
-      answer: {
-        ...data,
-        userId: this.props.userId,
-        questionId: this.state.questionId       
+  addToState(videoData) {
+    var apiUrl = '/api/answers';
+    postVideoUrl(videoData.publicUrl, apiUrl, this.props.userId, this.state.questionId)
+    .then((data) => {
+      var action = {
+        questionCode: this.state.code,
+        answer: {
+          ...data,
+          userId: this.props.userId,
+          questionId: this.state.questionId       
+        }
       }
-    }
+      this.props.postAnswer(action);
+    })
+
     // call action creator which will redirect to topic page
-    this.props.postAnswer(action);
   }
 
 
@@ -34,7 +40,7 @@ class RecordAnswer extends React.Component {
   render() {
     return (
       <div>
-        <Record addToState={this.addToState} apiUrl={'/api/answers'} userId={this.props.userId} questionId={this.state.questionId} />
+        <Record addToState={this.addToState} addTags={() => {} } />
       </div>
     );
   }

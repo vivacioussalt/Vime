@@ -70,12 +70,13 @@ export let putObjectToS3 = (data) => {
 //Function that is invoked after success of saving video to aws s3
 //Posts video public url to server to be saved
 //If post successfull server will respond with share code for video
-export let postVideoUrl = (s3url, apiUrl, userId, questionId) => {
+export let postVideoUrl = (s3url, apiUrl, userId, questionId, tags = []) => {
   //Post to server with publicURL of s3 video
 
   let data = {
     publicUrl: s3url,
-    questionId: questionId
+    questionId: questionId,
+    tags: tags
   };
   if (userId) {
     data.userId = userId;

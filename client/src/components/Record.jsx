@@ -17,13 +17,17 @@ export default class Record extends React.Component {
       link: '',
       finishedRecording: false,
       uploading: false,
-      intervalHandle: null   
+      intervalHandle: null,
+      speechRecognition: null,
+      finalTranscript: '',
+      isListening: false   
     };
   }
 
   componentDidMount() {
     this.checkUserProtocol();
     this.requestUserMedia(); 
+    this.loadSpeech();
   }
 
   componentWillUnmount(){
@@ -47,10 +51,81 @@ export default class Record extends React.Component {
       </div>
     );
   }
+/*
+  If trying to transcribe the entire question and let user see what they said & then edit before submission, you can use this form, but currently not worth it because speech analysis isn't accurate enough. 
+  <form>
+  <div className="input-field">
+    <textarea id="question-text" className="materialize-textarea" value={this.state.finalTranscript} onChange={e => {this.handleTextChange(e)}}> </textarea>
+    <label htmlFor="question-text">Your question</label>
+  </div>
+  </form>
+  
+  handleTextChange(e) {
+    this.setState({
+      finalTranscript: e.target.value
+    });
+  }
+*/
+
+
+
+  startSpeech(event) {
+    this.setState({
+      finalTranscript: '',
+      isListening: true
+    }) 
+    // this.state.speechRecognition.lang = select_dialect.value;
+    // ^ not needed, default is whatever language set on HTML file
+    // console.log('START SPEECH');
+
+    this.state.speechRecognition.start();
+  }
+
+  stopSpeech(event) {
+    this.setState({
+      isListening: false
+    });
+    // console.log('STOP SPEECH');
+    this.state.speechRecognition.stop();
+  }
+
+  loadSpeech(){
+    // https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
+    if ('webkitSpeechRecognition' in window) {
+      var speechRecognition = new webkitSpeechRecognition();
+      speechRecognition.continuous = true;
+      /* 
+      The default value for continuous is false, meaning that when the user stops talking, speech recognition will end. This mode is great for simple text like short input fields. In this demo, we set it to true, so that recognition will continue even if the user pauses while speaking.
+      */
+      speechRecognition.interimResults = true;
+
+      speechRecognition.onstart = function() {};
+      speechRecognition.onresult = function(event) {
+        var interimTranscript = '';
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            this.setState({
+              finalTranscript: this.state.finalTranscript + event.results[i][0].transcript
+            });
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+      }.bind(this);
+      speechRecognition.onerror = function(event) {
+        console.warn('error in speech recognition', event)
+      };
+      speechRecognition.onend = function() {
+        this.props.addTags(this.state.finalTranscript);
+      }.bind(this);
+      this.setState({
+        speechRecognition: speechRecognition
+      })
+    }
+  }
+
 
   checkUserProtocol() {
-    console.log('inside checkUserProtocol');
-
     let isSecureOrigin = location.protocol === 'https:' || location.host === 'localhost:3000';
     if (!isSecureOrigin) {
       alert('getUserMedia() must be run from a secure origin: HTTPS or localhost.' +
@@ -61,8 +136,6 @@ export default class Record extends React.Component {
 
 
   requestUserMedia() {
-    console.log('inside requestUserMedia');
-
     //Use native web api for Media Recorder (https://developers.google.com/web/updates/2016/01/mediarecorder)
     //to get the user audio and video
     return navigator.mediaDevices.getUserMedia({audio: true, video: true})
@@ -73,11 +146,9 @@ export default class Record extends React.Component {
   }
 
   handleConnect(stream) {
-    console.log('inside handleConnect');
-
     //Set the stream state
     //Take user media and create a url that will be added to the video tag src in the DOM
-    console.log('Stream connected');
+    // console.log('Stream connected');
     this.setState({
       stream: stream,
       streamVidUrl: window.URL.createObjectURL(stream)
@@ -85,15 +156,11 @@ export default class Record extends React.Component {
   }
 
   handleError(error) {
-    console.log('inside handleError');
-
     //Catch and log error on request of user media
     console.log('error in request of user media:', error);
   }
 
   toggleRec() {
-    console.log('inside toggleRec');
-
     //If the user is recording invoke stopRec
     //else invoke startRec if the user is not recording
     if (this.state.isRec) {
@@ -101,10 +168,14 @@ export default class Record extends React.Component {
     } else {
       this.startRec();
     }
+    if (!this.state.isListening) {
+      this.startSpeech(event);
+    } else {
+      this.stopSpeech(event);
+    }
   }
 
   startRec() {
-    console.log('inside startRec');
     if (!this.state.stream) {
       this.requestUserMedia()
         .then(() => {
@@ -136,8 +207,6 @@ export default class Record extends React.Component {
   }
 
   handleDataAvailable(event) {
-    console.log('inside handleDataAvailable');
-
     //If there is data add the data to the blobs array
     if (event.data && event.data.size > 0) {
       this.setState({
@@ -156,9 +225,6 @@ export default class Record extends React.Component {
   }
 
   stopRec() {
-    console.log('inside stopRec');
-
-
     //Stop the mediaRecorder and toggle
     this.state.mediaRecorder.stop();
 
@@ -182,8 +248,6 @@ export default class Record extends React.Component {
   }
 
   uploadRec() {
-    console.log('inside uploadRec');
-
     //Set the uploading to true to show the loader bar
     this.setState({
       uploading: true
@@ -205,7 +269,8 @@ export default class Record extends React.Component {
       // call the container's function which dispatches action
       this.props.addToState(data);
       //Set the share link and remove the spinner from the page
-      // NEED TO FIX: 
+     
+      // NEED TO FIX TURNING OFF UPLOADING BAR: 
       // ERROR IS: CAN'T SET STATE ON UNMOUNTED COMPONENT
       // this.setState({
       //   uploading: false

@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import vote from '../actions/vote';
 import setFilter from '../actions/setFilter';
+import { getAnswersForQuestion } from '../actions/answerActions';
 import AnswerVideoGrid from './../components/AnswerVideoGrid.jsx';
 import { orderBy } from 'lodash';
 
@@ -10,6 +11,10 @@ export default class Topic extends React.Component {
   constructor(props) {
     super(props);
     console.log('topic', props);
+  }
+
+  componentWillMount() {
+    this.props.getAnswersForQuestion(this.props.question.id, this.props.code)
   }
 
   render() {
@@ -76,7 +81,8 @@ function mapDispatchToProps(dispatch) {
   return {
     upvote: bindActionCreators(vote.bind(null, 'upvote'), dispatch),
     downvote: bindActionCreators(vote.bind(null, 'downvote'), dispatch),
-    setFilter: bindActionCreators(setFilter, dispatch)
+    setFilter: bindActionCreators(setFilter, dispatch),
+    getAnswersForQuestion: bindActionCreators(getAnswersForQuestion, dispatch)
   };
 }
 

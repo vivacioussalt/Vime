@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import QuestionVideoGrid from '../components/QuestionVideoGrid';
 import { getQuestions } from '../actions/questionAction';
 import { getAnswersForQuestion } from '../actions/answerActions';
+import { values, orderBy } from 'lodash';
 
 class Home extends React.Component {
   constructor(props) {
@@ -57,11 +58,25 @@ class Home extends React.Component {
   }
 };
 
+function orderQuestions(questions, order='POPULAR') {
+  switch(order) {
+    case 'NEWEST':
+      return orderBy(questions, ['createdAt'], ['asc']);
+    case 'OLDEST':
+      return orderBy(questions, ['createdAt'], ['dsc']);
+    case 'HIGHEST_RATED':
+      return orderBy(questions, (a, b) => a.upvote - b.upvote); 
+    case 'POPULAR':
+      return orderBy(questions, (a, b) => a.upvote + a.downvote - b.upvote - b.downvote); 
+    default:
+      return questions;
+  }
+}
 
 function mapStateToProps(state) {
   return {
     questionsByCode: state.questionsByCode,
-    questions: [] 
+    questions: orderQuestions(values(state.questionsByCode))
   }
 }
 function mapDispatchToProps(dispatch){

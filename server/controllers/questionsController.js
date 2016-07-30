@@ -1,8 +1,8 @@
-var Question = require('../models/models.js').Question;
-var shortid = require('shortid');
+const Question = require('../models/models.js').Question;
+const shortid = require('shortid');
 
 //return all questions from the database
-var getAllQuestions = function(req, res) {
+const getAllQuestions = function(req, res) {
   Question.findAll().then(function(questions) {
     res.send(questions.map(question => {
       return question.dataValues
@@ -11,7 +11,7 @@ var getAllQuestions = function(req, res) {
 };
 
 //return all questions for a USER from the database
-var getQuestionsForUser = function(req, res) {
+const getQuestionsForUser = function(req, res) {
   Question.findAll({
     where : { userId : req.query.uid }
   }).then(function(questions) {
@@ -22,7 +22,7 @@ var getQuestionsForUser = function(req, res) {
 };
 
 //Get question video by code and send video to client
-var getQuestion = function(req, res) {
+const getQuestion = function(req, res) {
   console.log('Getting QUESTION video with code:', req.query.code);
   Question.findOne({ 
     where: { code: req.query.code } 
@@ -33,7 +33,7 @@ var getQuestion = function(req, res) {
 
 //Create Question video with aws public url and uniq code
 //Send code to client on success
-var createQuestion = function(req, res) {
+const createQuestion = function(req, res) {
   console.log('');
   req.app.socket.broadcast.emit('makeQuestion', 'Someone made a question!');
   console.log('');

@@ -1,5 +1,7 @@
-const { User, Question, Answer } = require('../models/models');
-
+const models = require('../models/models');
+const User = models.User;
+const Question = models.Question;
+const Answer = models.Answer;
 const existsMessage = 'Username exists/Incorrect password';
 
 function postUser(req, res) {

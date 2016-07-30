@@ -1,9 +1,10 @@
-var Answer = require('../models/models.js').Answer;
-var Question = require('../models/models.js').Question;
-var shortid = require('shortid');
+const models = require('../models/models.js');
+const Answer = models.Answer;
+const Question = models.Question;
+const shortid = require('shortid');
 
 //return all answers for a USER from the database
-var getAnswersForUser = function(req, res) {
+const getAnswersForUser = function(req, res) {
   Answer.findAll({
     where: { userId: req.query.uid }
   }).then(function(answers) {
@@ -14,7 +15,7 @@ var getAnswersForUser = function(req, res) {
 };
 
 //return all answers for a QUESTION from the database
-var getAnswersForQuestion = function(req, res) {
+const getAnswersForQuestion = function(req, res) {
   Answer.findAll({
     where: { questionId: req.query.questionId }
   }).then(function(answers) {
@@ -25,7 +26,7 @@ var getAnswersForQuestion = function(req, res) {
 };
 
 //Get answer video by code and send video to client
-var getAnswer = function(req, res) {
+const getAnswer = function(req, res) {
   console.log('Getting ANSWER video with code:', req.query.code);
   Answer.findOne({ 
     where: { code: req.query.code } 
@@ -36,7 +37,7 @@ var getAnswer = function(req, res) {
 
 //Create Answer video with aws public url and uniq code
 //Send code to client on success
-var createAnswer = function(req, res) {
+const createAnswer = function(req, res) {
   console.log('Creating ANSWER video with url:', req.body.publicUrl);
   Answer.create({
     url: req.body.publicUrl,

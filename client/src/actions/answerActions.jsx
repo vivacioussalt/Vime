@@ -35,7 +35,6 @@ function getAnswersForQuestion(id, code) {
     .then(checkStatus)
     .then(toJSON)
     .then(answers => {
-      console.log(answers);
       dispatch(addAllAnswers(code, answers));
     })
     .catch(err => console.warn('error in getAnswers', err))

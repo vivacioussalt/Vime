@@ -38,7 +38,6 @@ const getQuestionsForUser = function(req, res) {
 
 //Get question video by code and send video to client
 const getQuestion = function(req, res) {
-  console.log('Getting QUESTION video with code:', req.query.code);
   Question.findOne({ 
     where: { code: req.query.code } 
   }).then(function(question) {
@@ -50,11 +49,7 @@ const getQuestion = function(req, res) {
 //Send code to client on success
 const createQuestion = function(req, res) {
   var videoCode = shortid.generate();
-  console.log('');
   req.app.socket.broadcast.emit('makeQuestion', videoCode );
-  console.log('');
-  console.log('Creating QUESTION video with url:', req.body.publicUrl);
-  console.log('question tags', req.body.tags);
   Question.create({
     url: req.body.publicUrl,
     userId: req.body.userId,

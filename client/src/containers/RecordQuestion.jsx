@@ -77,18 +77,14 @@ class RecordQuestion extends React.Component {
 
   addTags(data) {
     var data = data.split(' ');
-    // console.log('BEFORE FILTER', data);
     data = data.filter(tag => tag.length > 4);
     // filtering out words with length of 3 or less
     data = union(data);
     // union is from lodash, returns just unique values
 
-    // console.log(nlp.tags(data));
     // use a better filter to parse out nouns, people, places
     // http://nlp-compromise.github.io/website/#demos 
     
-    // console.log('AFTER', data);
-
     var tagData = [];
     for (var i = 0; i < data.length; i++) {
       tagData.push({

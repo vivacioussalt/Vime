@@ -27,7 +27,6 @@ const getAnswersForQuestion = function(req, res) {
 
 //Get answer video by code and send video to client
 const getAnswer = function(req, res) {
-  console.log('Getting ANSWER video with code:', req.query.code);
   Answer.findOne({ 
     where: { code: req.query.code } 
   }).then(function(answer) {
@@ -38,7 +37,6 @@ const getAnswer = function(req, res) {
 //Create Answer video with aws public url and uniq code
 //Send code to client on success
 const createAnswer = function(req, res) {
-  console.log('Creating ANSWER video with url:', req.body.publicUrl);
   Answer.create({
     url: req.body.publicUrl,
     userId: req.body.userId,
@@ -46,7 +44,6 @@ const createAnswer = function(req, res) {
     code: shortid.generate()
   })
   .then(function(answer) {
-    console.log('created ANSWER video:', answer);
     res.send(answer.dataValues);
   });
 };

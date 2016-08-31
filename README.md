@@ -29,9 +29,8 @@ For starting the app, run start or deploy remotely.
 
 - PostgreSQL
 - Chrome 49.0/Firefox 25.0/or newer
-
 - aws-sdk 2.4.7
-- babel-plugin-transform-object-rest-spread 6.8.0,
+- babel-plugin-transform-object-rest-spread 6.8.0
 - bcryptjs 2.3.0
 - bluebird 3.4.1
 - body-parser 1.15.2
@@ -79,7 +78,7 @@ npm install
 npm run postinstall
 ```
 
-Using PostgreSQL or MySQL, create a database for the project:
+Using PostgreSQL, create a database for the project:
 ```sh
 CREATE DATABASE <databasename>;
 ```

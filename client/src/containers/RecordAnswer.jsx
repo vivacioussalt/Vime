@@ -34,9 +34,6 @@ class RecordAnswer extends React.Component {
     // call action creator which will redirect to topic page
   }
 
-
-
-
   render() {
     return (
       <div>

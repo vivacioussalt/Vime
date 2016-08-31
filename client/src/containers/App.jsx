@@ -21,7 +21,6 @@ class App extends React.Component {
     //Load up questions when user starts app
     var getQuestions = this.props.getQuestions;
     getQuestions();
-    console.log('You said hello to the server');
     socket.emit('some message','hello');
     socket.on('someone else', function(msg){
       console.log('You got a message from someone else:', msg);

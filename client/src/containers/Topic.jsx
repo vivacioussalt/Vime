@@ -24,7 +24,6 @@ export default class Topic extends React.Component {
         flexWrap: 'wrap'
       }
     };
-    console.log('topic', props);
   }
 
   componentWillMount() {

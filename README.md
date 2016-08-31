@@ -1,4 +1,4 @@
-# Project Name
+# Fryes
 
 Fryes is a web based Video Question and Answers forum.  Record your questions and donate to those who provide great answers.
 
